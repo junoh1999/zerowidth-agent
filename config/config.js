@@ -15,18 +15,29 @@ const chatConfig = {
   flowURL:
     "https://api.zerowidth.ai/v1/process/xqu2zft7pfneFQOP4CCM/mKV0yXaD2mPJuHn8dqzv",
   header: {
-    title: "Chat with ELIZA",
+    title: "Chat with Jun",
     description:
-      "Greetings, I am a draft clone of ELIZA running the DOCTOR script. HOW DO YOU DO. PLEASE STATE YOUR PROBLEM.",
+      "Hello! I'm Jun's assistant. Ask me about Jun's work, interests, or anything else you'd like to know.",
   },
-  suggestedPromptsTitle: "Here are some suggested prompts.",
+  suggestedPromptsTitle: "Try asking:",
   suggestedPrompts: [
-    "I spend too much time with computers.",
-    "I feel overwhelmed trying to keep up with AI trends.",
-    "I am anxious about the future.",
+    "Tell me about your design work",
+    "What projects are you working on?",
+    "How can I collaborate with you?",
   ],
-  chatInputPlaceholder: "Chat with this agent...",
-  maxChatHeight: 200,
+  chatInputPlaceholder: "Type your message here...",
+  maxChatHeight: 300,
+  // Added styling configurations to match website
+  styling: {
+    fontFamily: "Orkney, sans-serif",
+    primaryColor: "#000000",
+    secondaryColor: "#FFFFFF",
+    accentColor: "#000000",
+    userBubbleColor: "#EFEFEF",
+    userBubbleBorder: "#000000",
+    agentBubbleColor: "#000000",
+    agentBubbleTextColor: "#FFFFFF"
+  }
 };
 
 export default chatConfig;
