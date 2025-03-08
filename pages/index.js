@@ -1,47 +1,27 @@
 // =============================================================================
-// Chat Agent with User & Agent Bubbles (React + Vercel)
+// Chat Agent with Exact Styling Match (React + Vercel)
 //
-// This React component renders a chat interface where users can type messages
-// and receive responses from an agent via a serverless API endpoint on Vercel.
-// Messages are displayed in styled chat bubbles to clearly differentiate between
-// user messages (right-aligned) and agent messages (left-aligned).
+// This React component renders a chat interface styled as a rounded black rectangle 
+// with white input fields to match Jun's website aesthetic.
 //
-// Key Features:
-// - Maintains a conversation history.
-// - Displays each message in a styled bubble.
-// - Sends user messages to the API and appends the agent's response (rendered as Markdown) to the chat.
-// - Automatically scrolls to the latest message in a scrollable parent container.
-// - Animates the submit button while the agent is "thinking".
-// - Provides detailed comments for ease of understanding.
-//
-// Author: Thomas J McLeish
-// Date: March 2, 2025
+// Author: Modified from Thomas J McLeish's original
 // =============================================================================
 
-// Import the chat configuration settings.
-// includes the header title, description, and suggested prompts.
 import chatConfig from "../config/config";
-// Import React hooks for managing state and side effects.
 import { useState, useEffect, useRef } from "react";
-// Import react-markdown to render markdown content.
 import ReactMarkdown from "react-markdown";
-// Import UUID to generate session ID
 import { v4 as uuidv4 } from "uuid";
 
 /**
  * Retrieves or generates a session ID and stores it in sessionStorage.
- * Ensures it only runs on the client side and limits it to 32 characters.
- * @returns {string} The session ID.
  */
 const getSessionId = () => {
   if (typeof window === "undefined") return ""; // Prevent SSR issues
 
   let sessionId = sessionStorage.getItem("sessionId");
-  //if the id is greater than 32 characters, we need to generate a new one.
   sessionId = sessionId && sessionId.length <= 32 ? sessionId : null;
 
   if (!sessionId) {
-    //the generated id is 36 characters long, so we need to remove the dashes and limit it to 32 characters.
     sessionId = uuidv4().replace(/-/g, "").slice(0, 32); // Ensure max 32 chars
     sessionStorage.setItem("sessionId", sessionId);
   }
@@ -50,18 +30,14 @@ const getSessionId = () => {
 
 /**
  * Retrieves or generates a persistent user ID and stores it in localStorage.
- * Ensures it only runs on the client side and limits it to 32 characters.
- * @returns {string} The user ID.
  */
 const getUserId = () => {
   if (typeof window === "undefined") return ""; // Prevent SSR issues
 
   let userId = localStorage.getItem("userId");
-  //if the id is greater than 32 characters, we need to generate a new one.
   userId = userId && userId.length <= 32 ? userId : null;
 
   if (!userId) {
-    //the generated id is 36 characters long, so we need to remove the dashes and limit it to 32 characters.
     userId = uuidv4().replace(/-/g, "").slice(0, 32); // Ensure max 32 chars
     localStorage.setItem("userId", userId);
   }
@@ -69,36 +45,24 @@ const getUserId = () => {
 };
 
 /**
- * AgentComponent renders a chat interface with user and agent bubbles.
- * It manages the conversation state, handles user input and API requests,
- * and renders responses as Markdown.
- *
- * @returns {JSX.Element} The rendered chat interface.
+ * AgentComponent renders a chat interface with a rounded rectangle design.
  */
 export default function AgentComponent() {
   // State to store the user's current input from the text field.
   const [message, setMessage] = useState("");
-
   // State to store the conversation as an array of message objects.
-  // Each message object has a role ("user" or "agent") and the message content.
   const [conversation, setConversation] = useState([]);
-
   // State to capture any errors during the API request.
   const [error, setError] = useState(null);
-
   // State to track if the agent is processing (loading state).
   const [isLoading, setIsLoading] = useState(false);
-
   // Create a ref to track the end of the messages container.
   const messagesEndRef = useRef(null);
-
   // Initialize session ID and user ID states.
   const [sessionId, setSessionId] = useState("");
   const [userId, setUserId] = useState("");
-
-  // Initialize the hovered index state for suggested prompts.
-  const [hoveredIndex, setHoveredIndex] = useState(null);
-
+  // State to track active input (top or bottom)
+  const [activeInput, setActiveInput] = useState("bottom");
   // State to track if the submit button is hovered.
   const [isSubmitHovered, setIsSubmitHovered] = useState(false);
 
@@ -117,29 +81,26 @@ export default function AgentComponent() {
 
   // Scroll to the latest message whenever the conversation updates.
   useEffect(() => {
-    if (document.querySelector(".chat-container")) {
+    if (document.querySelector(".chat-messages")) {
       scrollToBottom();
     }
   }, [conversation]);
 
   /**
    * Handles the form submission event.
-   * @param {Event} e - The form submission event.
    */
   const handleSubmit = (e) => {
     e.preventDefault();
-    submitMessage(message);
+    if (activeInput === "top") {
+      submitMessage(message);
+      setActiveInput("bottom");
+    } else {
+      submitMessage(message);
+    }
   };
 
   /**
    * Handles the submission of the chat input form.
-   *
-   * Prevents the default form submission behavior, updates the conversation
-   * with the user's message, sends the message to the API, and appends the agent's
-   * response to the conversation.
-   *
-   * @param {Event} e - The form submission event.
-   * @returns {Promise<void>} A promise that resolves when the submission is complete.
    */
   const submitMessage = async (userInput) => {
     // If the message is empty, do nothing.
@@ -161,7 +122,6 @@ export default function AgentComponent() {
     setConversation((prev) => [...prev, userMessage]);
 
     // Prepare the payload for the API call.
-    // Note: In production, user_id and session_id should be uniquely generated.
     const payload = {
       data: {
         message: userMessage,
@@ -194,8 +154,7 @@ export default function AgentComponent() {
       // Parse the JSON response from the API.
       const data = await res.json();
 
-      // Extract the agent's reply from output_data.content.
-      // If output_data or content is missing, fall back to a default message.
+      // Extract the agent's reply.
       const agentReply =
         data.output_data && data.output_data.content
           ? data.output_data.content
@@ -223,332 +182,162 @@ export default function AgentComponent() {
     }
   };
 
-  /**
-   * Inline styles for chat bubbles based on the message role.
-   * Updated to match website styling
-   */
-  const bubbleStyles = {
-    user: {
-      alignSelf: "flex-end",
-      backgroundColor: chatConfig.styling.userBubbleColor,
-      color: chatConfig.styling.primaryColor,
-      padding: "12px 16px",
-      borderRadius: "4px",
-      border: `1px solid ${chatConfig.styling.userBubbleBorder}`,
-      margin: "4px 0",
-      maxWidth: "80%",
-      fontSize: "14px",
-      fontFamily: chatConfig.styling.fontFamily,
-    },
-    agent: {
-      alignSelf: "flex-start",
-      backgroundColor: chatConfig.styling.agentBubbleColor,
-      color: chatConfig.styling.agentBubbleTextColor,
-      padding: "12px 16px",
-      borderRadius: "4px",
-      margin: "4px 0",
-      maxWidth: "80%",
-      fontSize: "14px",
-      fontFamily: chatConfig.styling.fontFamily,
-    },
+  const handleInputChange = (e) => {
+    setMessage(e.target.value);
   };
 
-  /**
-   * Handles the click event on a suggested prompt.
-   *
-   * Sets the chat input to the prompt text when clicked.
-   * Submit the prompt to the chat
-   *
-   * @param {Object} prompt - The prompt object containing text and autoSubmit flag.
-   */
-  const handlePromptClick = async (prompt) => {
-    // Set the chat input to the prompt text.
-    setMessage(prompt);
-    // Submit the prompt to the chat.
-    setTimeout(() => {
-      submitMessage(prompt);
-    }, 0); // Ensures the state has been updated before calling submitMessage
+  const handleTopInputFocus = () => {
+    setActiveInput("top");
   };
 
-  /**
-   * Handles the mouseover event on a suggested prompt.
-   * @param {*} index
-   */
-  const handlePromptMouseOver = (index) => {
-    if (!isLoading) {
-      setHoveredIndex(index);
-    }
-  };
-
-  /**
-   * Handles the mouseout event on a suggested prompt.
-   */
-  const handlePromptMouseOut = () => {
-    setHoveredIndex(null);
+  const handleBottomInputFocus = () => {
+    setActiveInput("bottom");
   };
 
   return (
     <div
       style={{
-        padding: "0",
+        position: "relative",
         width: "100%",
-        maxWidth: "800px", // Wider to match your site's content width
+        maxWidth: "400px", // Adjust width to match your design
         margin: "0 auto",
-        fontFamily: chatConfig.styling.fontFamily,
-        borderRadius: "0",
-        border: "none",
+        fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif",
       }}
     >
-      {/* Descriptive header for the chat application */}
       <div
-        className="chat-header"
         style={{
-          marginBottom: "16px",
-          userSelect: "none",
-        }}
-      >
-        <div
-          className="chat-title"
-          style={{
-            backgroundColor: chatConfig.styling.primaryColor,
-            color: chatConfig.styling.secondaryColor,
-            padding: "16px",
-            borderRadius: "0",
-            fontSize: "18px",
-            fontWeight: "bold",
-            letterSpacing: "0.5px",
-          }}
-        >
-          {chatConfig.header.title}
-        </div>
-        <div
-          className="chat-description"
-          style={{
-            padding: "12px 16px",
-            fontSize: "14px",
-            fontWeight: "normal",
-            borderLeft: `1px solid ${chatConfig.styling.primaryColor}`,
-            borderRight: `1px solid ${chatConfig.styling.primaryColor}`,
-            borderBottom: `1px solid ${chatConfig.styling.primaryColor}`,
-          }}
-        >
-          {chatConfig.header.description}
-        </div>
-      </div>
-
-      {/* Chat conversation container displaying messages in bubbles */}
-      <div
-        className="chat-container"
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "8px",
-          marginBottom: "16px",
-          height: chatConfig.maxChatHeight,
-          overflowY: "auto",
-          border: `1px solid ${chatConfig.styling.primaryColor}`,
+          backgroundColor: "#000000",
+          borderRadius: "24px", // Rounded corners like in your images
           padding: "16px",
-          borderRadius: "0",
-          backgroundColor: chatConfig.styling.secondaryColor,
-          width: "100%",
-        }}
-      >
-        {conversation.map((msg, index) => (
-          <div
-            key={index}
-            style={msg.role === "user" ? bubbleStyles.user : bubbleStyles.agent}
-          >
-            {msg.role === "agent" ? (
-              <ReactMarkdown>{msg.content}</ReactMarkdown>
-            ) : (
-              msg.content
-            )}
-          </div>
-        ))}
-        <div ref={messagesEndRef} />
-      </div>
-
-      {/* Suggested Prompts Section - updated with minimal styling */}
-      <div
-        style={{
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
           display: "flex",
           flexDirection: "column",
-          border: `1px solid ${chatConfig.styling.primaryColor}`,
-          marginBottom: "16px",
-          padding: "12px 16px",
+          gap: "10px",
+          minHeight: "150px", // Minimum height to match design
         }}
       >
-        <div style={{ margin: "0 0 8px 0", fontSize: "14px", fontWeight: "bold" }}>
-          {chatConfig.suggestedPromptsTitle}
-        </div>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-          {chatConfig.suggestedPrompts.map((prompt, index) => (
-            <button
+        {/* Chat messages */}
+        <div
+          className="chat-messages"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+            marginTop: "10px",
+            marginBottom: "10px",
+            flexGrow: 1,
+            overflowY: "auto",
+            maxHeight: "200px",
+          }}
+        >
+          {conversation.map((msg, index) => (
+            <div
               key={index}
-              onClick={() => handlePromptClick(prompt)}
-              onMouseOver={() => handlePromptMouseOver(index)}
-              onMouseOut={handlePromptMouseOut}
-              disabled={isLoading}
               style={{
-                padding: "8px 12px",
-                border: `1px solid ${chatConfig.styling.primaryColor}`,
-                backgroundColor: hoveredIndex === index 
-                  ? chatConfig.styling.primaryColor 
-                  : chatConfig.styling.secondaryColor,
-                color: hoveredIndex === index 
-                  ? chatConfig.styling.secondaryColor 
-                  : chatConfig.styling.primaryColor,
+                alignSelf: msg.role === "user" ? "flex-start" : "flex-start",
+                backgroundColor: msg.role === "user" ? "#000000" : "#FFFFFF",
+                color: msg.role === "user" ? "#FFFFFF" : "#000000",
+                border: msg.role === "user" ? "1px solid #FFFFFF" : "none",
+                borderRadius: "999px",
+                padding: "8px 16px",
+                maxWidth: "80%",
+                wordBreak: "break-word",
                 fontSize: "14px",
-                cursor: "pointer",
-                borderRadius: "0",
-                transition: "all 0.2s ease",
               }}
             >
-              {prompt}
-            </button>
+              {msg.role === "agent" ? (
+                <ReactMarkdown>{msg.content}</ReactMarkdown>
+              ) : (
+                msg.content
+              )}
+            </div>
           ))}
+          <div ref={messagesEndRef} />
         </div>
-      </div>
 
-      {/* Chat input form - updated with minimal styling */}
-      <form onSubmit={handleSubmit} style={{ display: "flex", gap: "0" }}>
+        {/* Input for "Tell me about your favorite project" */}
         <div
           style={{
             display: "flex",
-            alignItems: "center",
-            width: "100%",
-            border: `1px solid ${chatConfig.styling.primaryColor}`,
-            overflow: "hidden",
-            backgroundColor: chatConfig.styling.secondaryColor,
+            justifyContent: "center",
           }}
         >
           <input
             type="text"
-            id="message"
-            placeholder={chatConfig.chatInputPlaceholder}
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Tell me about your favorite project..."
+            value={activeInput === "top" ? message : ""}
+            onChange={handleInputChange}
+            onFocus={handleTopInputFocus}
             style={{
-              flexGrow: 1,
-              padding: "12px 16px",
+              width: "90%",
+              padding: "8px 16px",
+              borderRadius: "999px",
               border: "none",
               outline: "none",
-              backgroundColor: chatConfig.styling.secondaryColor,
-              fontFamily: chatConfig.styling.fontFamily,
               fontSize: "14px",
+              backgroundColor: "#FFFFFF",
+            }}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                handleSubmit(e);
+              }
             }}
           />
-          <button
-            type="submit"
-            aria-label="Send prompt"
-            data-testid="send-button"
-            disabled={isLoading}
-            onMouseOver={() => setIsSubmitHovered(true)}
-            onMouseOut={() => setIsSubmitHovered(false)}
+        </div>
+
+        {/* Input for "Ask me anything" */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <input
+            type="text"
+            placeholder="Ask me anything..."
+            value={activeInput === "bottom" ? message : ""}
+            onChange={handleInputChange}
+            onFocus={handleBottomInputFocus}
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: isSubmitHovered ? "#333" : chatConfig.styling.primaryColor,
-              color: chatConfig.styling.secondaryColor,
-              height: "48px",
-              width: "48px",
+              width: "90%",
+              padding: "8px 16px",
+              borderRadius: "999px",
               border: "none",
-              borderLeft: `1px solid ${chatConfig.styling.primaryColor}`,
-              cursor: isLoading ? "default" : "pointer",
-              transition: "background-color 0.2s ease",
+              outline: "none",
+              fontSize: "14px",
+              backgroundColor: "#FFFFFF",
             }}
-          >
-            {!isLoading ? (
-              <svg
-                width="24px"
-                height="24px"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"
-                  fill="currentColor"
-                ></path>
-              </svg>
-            ) : (
-              <svg
-                width="24px"
-                height="24px"
-                viewBox="0 0 24 24"
-                style={{ animation: "spin 1s linear infinite" }}
-              >
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  fill="none"
-                  strokeDasharray="40 60"
-                />
-              </svg>
-            )}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                handleSubmit(e);
+              }
+            }}
+          />
+        </div>
+
+        {/* Hidden form for handling submit */}
+        <form onSubmit={handleSubmit} style={{ display: "none" }}>
+          <button type="submit" disabled={isLoading}>
+            Send
           </button>
-        </div>
-      </form>
-
-      {/* Tiny display of user ID and session ID */}
-      <div
-        style={{
-          marginTop: "8px",
-          fontSize: "10px",
-          color: "#777",
-          textAlign: "right",
-          fontFamily: chatConfig.styling.fontFamily,
-        }}
-      >
-        ID: {userId.substring(0, 8)}...
+        </form>
       </div>
-
-      {/* Error display */}
-      {error && (
-        <div style={{ color: "red", marginTop: "16px", fontFamily: chatConfig.styling.fontFamily }}>
-          <strong>Error:</strong> {error}
-        </div>
-      )}
 
       {/* CSS styles */}
       <style jsx>{`
-        .chat-container::-webkit-scrollbar {
+        .chat-messages::-webkit-scrollbar {
           width: 4px;
         }
-        .chat-container::-webkit-scrollbar-track {
+        .chat-messages::-webkit-scrollbar-track {
           background: transparent;
         }
-        .chat-container::-webkit-scrollbar-thumb {
-          background-color: #888;
+        .chat-messages::-webkit-scrollbar-thumb {
+          background-color: #555;
         }
-        .chat-container {
+        .chat-messages {
           scrollbar-width: thin;
-          scrollbar-color: #888 transparent;
+          scrollbar-color: #555 transparent;
         }
-        @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        
-@font-face {
-  font-family: 'Orkney';
-  src: url('/fonts/orkney-regular.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Orkney';
-  src: url('/fonts/orkney-bold.woff') format('woff');
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
       `}</style>
     </div>
   );
