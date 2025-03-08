@@ -534,14 +534,21 @@ export default function AgentComponent() {
           to { transform: rotate(360deg); }
         }
         
-        /* Add Orkney font if needed */
-        @font-face {
-          font-family: 'Orkney';
-          src: url('/fonts/Orkney-Regular.woff2') format('woff2');
-          font-weight: normal;
-          font-style: normal;
-          font-display: swap;
-        }
+@font-face {
+  font-family: 'Orkney';
+  src: url('/fonts/Orkney-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Orkney';
+  src: url('/fonts/Orkney-Bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
       `}</style>
     </div>
   );
