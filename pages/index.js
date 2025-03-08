@@ -225,34 +225,33 @@ export default function AgentComponent() {
 
   /**
    * Inline styles for chat bubbles based on the message role.
-   *
-   * @type {Object}
-   * @property {Object} user - Styles for user messages (right-aligned, light green background).
-   * @property {Object} agent - Styles for agent messages (left-aligned, light gray background).
+   * Updated to match website styling
    */
- // Modify your bubbleStyles object
-const bubbleStyles = {
-  user: {
-    alignSelf: "flex-end",
-    backgroundColor: "#000", // Black user messages
-    color: "#fff", // White text
-    padding: "10px",
-    borderRadius: "15px", // More rounded for bubble feel
-    margin: "5px",
-    maxWidth: "80%",
-    fontSize: "12px",
-  },
-  agent: {
-    alignSelf: "flex-start",
-    backgroundColor: "#000", // Black agent messages
-    color: "#fff", // White text
-    padding: "10px",
-    borderRadius: "15px", // More rounded for bubble feel
-    margin: "5px",
-    maxWidth: "80%",
-    fontSize: "12px",
-  },
-};
+  const bubbleStyles = {
+    user: {
+      alignSelf: "flex-end",
+      backgroundColor: chatConfig.styling.userBubbleColor,
+      color: chatConfig.styling.primaryColor,
+      padding: "12px 16px",
+      borderRadius: "4px",
+      border: `1px solid ${chatConfig.styling.userBubbleBorder}`,
+      margin: "4px 0",
+      maxWidth: "80%",
+      fontSize: "14px",
+      fontFamily: chatConfig.styling.fontFamily,
+    },
+    agent: {
+      alignSelf: "flex-start",
+      backgroundColor: chatConfig.styling.agentBubbleColor,
+      color: chatConfig.styling.agentBubbleTextColor,
+      padding: "12px 16px",
+      borderRadius: "4px",
+      margin: "4px 0",
+      maxWidth: "80%",
+      fontSize: "14px",
+      fontFamily: chatConfig.styling.fontFamily,
+    },
+  };
 
   /**
    * Handles the click event on a suggested prompt.
@@ -291,34 +290,33 @@ const bubbleStyles = {
   return (
     <div
       style={{
-        padding: "5px",
-        width: "100vw",
-        maxWidth: "600px",
+        padding: "0",
+        width: "100%",
+        maxWidth: "800px", // Wider to match your site's content width
         margin: "0 auto",
-        fontFamily: "Arial, sans-serif",
-        borderRadius: "5px",
-        border: "1px solid #ccc",
+        fontFamily: chatConfig.styling.fontFamily,
+        borderRadius: "0",
+        border: "none",
       }}
     >
       {/* Descriptive header for the chat application */}
-<div
-  className="chat-header"
-  style={{
-    marginBottom: "0px",
-    userSelect: "none",
-    backgroundColor: "#000", // Black header
-    color: "#fff", // White text
-  }}
->
+      <div
+        className="chat-header"
+        style={{
+          marginBottom: "16px",
+          userSelect: "none",
+        }}
+      >
         <div
           className="chat-title"
           style={{
-            backgroundColor: "#000",
-            color: "#fff",
-            padding: "10px",
-            borderRadius: "5px",
-            fontSize: "16px",
+            backgroundColor: chatConfig.styling.primaryColor,
+            color: chatConfig.styling.secondaryColor,
+            padding: "16px",
+            borderRadius: "0",
+            fontSize: "18px",
             fontWeight: "bold",
+            letterSpacing: "0.5px",
           }}
         >
           {chatConfig.header.title}
@@ -326,10 +324,12 @@ const bubbleStyles = {
         <div
           className="chat-description"
           style={{
-            padding: "10px",
-            borderRadius: "5px",
-            fontSize: "12px",
+            padding: "12px 16px",
+            fontSize: "14px",
             fontWeight: "normal",
+            borderLeft: `1px solid ${chatConfig.styling.primaryColor}`,
+            borderRight: `1px solid ${chatConfig.styling.primaryColor}`,
+            borderBottom: `1px solid ${chatConfig.styling.primaryColor}`,
           }}
         >
           {chatConfig.header.description}
@@ -342,14 +342,14 @@ const bubbleStyles = {
         style={{
           display: "flex",
           flexDirection: "column",
-          gap: "5px",
-          marginBottom: "0px",
-          height: chatConfig.maxChatHeight, // Set a fixed height for the chat container
-          overflowY: "auto", // Enable vertical scrolling
-          border: "2px solid #000", // Optional: border around the chat area
-          padding: "0px",
-          borderRadius: "5px 5px 0 0",
-          backgroundColor: "#eee",
+          gap: "8px",
+          marginBottom: "16px",
+          height: chatConfig.maxChatHeight,
+          overflowY: "auto",
+          border: `1px solid ${chatConfig.styling.primaryColor}`,
+          padding: "16px",
+          borderRadius: "0",
+          backgroundColor: chatConfig.styling.secondaryColor,
           width: "100%",
         }}
       >
@@ -359,31 +359,29 @@ const bubbleStyles = {
             style={msg.role === "user" ? bubbleStyles.user : bubbleStyles.agent}
           >
             {msg.role === "agent" ? (
-              // Render the agent's response as Markdown.
               <ReactMarkdown>{msg.content}</ReactMarkdown>
             ) : (
-              // Display user messages as plain text.
               msg.content
             )}
           </div>
         ))}
-        {/* Dummy element to ensure the latest message is scrolled into view */}
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Suggested Prompts Section */}
+      {/* Suggested Prompts Section - updated with minimal styling */}
       <div
         style={{
           display: "flex",
-          flexWrap: "wrap",
-          border: "1px solid #ccc",
-          marginBottom: "0px",
+          flexDirection: "column",
+          border: `1px solid ${chatConfig.styling.primaryColor}`,
+          marginBottom: "16px",
+          padding: "12px 16px",
         }}
       >
-        <div style={{ margin: "2px", fontSize: "10px", fontStyle: "italic" }}>
+        <div style={{ margin: "0 0 8px 0", fontSize: "14px", fontWeight: "bold" }}>
           {chatConfig.suggestedPromptsTitle}
         </div>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "2px" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
           {chatConfig.suggestedPrompts.map((prompt, index) => (
             <button
               key={index}
@@ -392,14 +390,18 @@ const bubbleStyles = {
               onMouseOut={handlePromptMouseOut}
               disabled={isLoading}
               style={{
-                padding: "2px 4px",
-                borderRadius: "5px",
-                border: "1px solid #ccc",
-                margin: "2px",
-                backgroundColor: hoveredIndex === index ? "#ddd" : "#f4f4f4",
-                color: hoveredIndex === index ? "#000" : "#888",
-                fontSize: "12px",
+                padding: "8px 12px",
+                border: `1px solid ${chatConfig.styling.primaryColor}`,
+                backgroundColor: hoveredIndex === index 
+                  ? chatConfig.styling.primaryColor 
+                  : chatConfig.styling.secondaryColor,
+                color: hoveredIndex === index 
+                  ? chatConfig.styling.secondaryColor 
+                  : chatConfig.styling.primaryColor,
+                fontSize: "14px",
                 cursor: "pointer",
+                borderRadius: "0",
+                transition: "all 0.2s ease",
               }}
             >
               {prompt}
@@ -408,20 +410,16 @@ const bubbleStyles = {
         </div>
       </div>
 
-      {/* Chat input form for the user to send messages */}
-      <form onSubmit={handleSubmit} style={{ display: "flex", gap: "0px" }}>
+      {/* Chat input form - updated with minimal styling */}
+      <form onSubmit={handleSubmit} style={{ display: "flex", gap: "0" }}>
         <div
           style={{
             display: "flex",
             alignItems: "center",
-            gap: 0,
             width: "100%",
-            borderBottom: "1px solid #ccc",
-            borderLeft: "1px solid #ccc",
-            borderRight: "1px solid #ccc",
-            borderRadius: "0 0 5px 5px",
+            border: `1px solid ${chatConfig.styling.primaryColor}`,
             overflow: "hidden",
-            backgroundColor: "#fff",
+            backgroundColor: chatConfig.styling.secondaryColor,
           }}
         >
           <input
@@ -432,10 +430,12 @@ const bubbleStyles = {
             onChange={(e) => setMessage(e.target.value)}
             style={{
               flexGrow: 1,
-              padding: "10px",
+              padding: "12px 16px",
               border: "none",
               outline: "none",
-              backgroundColor: "#fff",
+              backgroundColor: chatConfig.styling.secondaryColor,
+              fontFamily: chatConfig.styling.fontFamily,
+              fontSize: "14px",
             }}
           />
           <button
@@ -449,54 +449,44 @@ const bubbleStyles = {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              borderRadius: "9999px",
-              transition: "opacity 0.2s ease",
-              backgroundColor: isSubmitHovered ? "#007BFF" : "#000",
-              color: isSubmitHovered ? "#fff" : "#fff",
-              height: "36px",
-              width: "36px",
-              border: "5px solid #fff",
+              backgroundColor: isSubmitHovered ? "#333" : chatConfig.styling.primaryColor,
+              color: chatConfig.styling.secondaryColor,
+              height: "48px",
+              width: "48px",
+              border: "none",
+              borderLeft: `1px solid ${chatConfig.styling.primaryColor}`,
               cursor: isLoading ? "default" : "pointer",
+              transition: "background-color 0.2s ease",
             }}
           >
             {!isLoading ? (
               <svg
-                width="36px"
-                height="36px"
-                viewBox="8 8 16 16"
+                width="24px"
+                height="24px"
+                viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M15.1918 8.90615C15.6381 8.45983 16.3618 8.45983 16.8081 8.90615L21.9509 14.049C22.3972 14.4953 22.3972 15.2189 21.9509 15.6652C21.5046 16.1116 20.781 16.1116 20.3347 15.6652L17.1428 12.4734V22.2857C17.1428 22.9169 16.6311 23.4286 15.9999 23.4286C15.3688 23.4286 14.8571 22.9169 14.8571 22.2857V12.4734L11.6652 15.6652C11.2189 16.1116 10.4953 16.1116 10.049 15.6652C9.60265 15.2189 9.60265 14.4953 10.049 14.049L15.1918 8.90615Z"
+                  d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"
                   fill="currentColor"
                 ></path>
               </svg>
             ) : (
               <svg
-                width="36px"
-                height="36px"
-                viewBox="0 0 50 50"
+                width="24px"
+                height="24px"
+                viewBox="0 0 24 24"
                 style={{ animation: "spin 1s linear infinite" }}
               >
                 <circle
-                  cx="25"
-                  cy="25"
-                  r="20"
-                  stroke="#888"
-                  strokeWidth="12"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="2"
                   fill="none"
-                />
-                <circle
-                  cx="25"
-                  cy="25"
-                  r="20"
-                  stroke="#fff"
-                  strokeWidth="12"
-                  strokeDasharray="31.4 31.4"
-                  fill="none"
+                  strokeDasharray="40 60"
                 />
               </svg>
             )}
@@ -507,47 +497,50 @@ const bubbleStyles = {
       {/* Tiny display of user ID and session ID */}
       <div
         style={{
-          marginTop: "2px",
-          fontSize: "9px",
-          color: "#999",
-          textAlign: "center",
+          marginTop: "8px",
+          fontSize: "10px",
+          color: "#777",
+          textAlign: "right",
+          fontFamily: chatConfig.styling.fontFamily,
         }}
       >
-        User ID: {userId} | Session ID: {sessionId}
+        ID: {userId.substring(0, 8)}...
       </div>
 
-      {/* Display error message if one occurs */}
+      {/* Error display */}
       {error && (
-        <div style={{ color: "red", marginTop: "20px" }}>
+        <div style={{ color: "red", marginTop: "16px", fontFamily: chatConfig.styling.fontFamily }}>
           <strong>Error:</strong> {error}
         </div>
       )}
 
-      {/* Define keyframes for the spin animation */}
+      {/* CSS styles */}
       <style jsx>{`
         .chat-container::-webkit-scrollbar {
-          width: 8px; /* Make scrollbar thinner */
+          width: 4px;
         }
         .chat-container::-webkit-scrollbar-track {
           background: transparent;
-          border-radius: 5px; /* Ensures the track has rounded corners */
         }
         .chat-container::-webkit-scrollbar-thumb {
-          background-color: #ccc;
-          border-radius: 5px;
+          background-color: #888;
         }
-        /* Firefox scrollbar styling */
         .chat-container {
           scrollbar-width: thin;
-          scrollbar-color: #ccc transparent;
+          scrollbar-color: #888 transparent;
         }
         @keyframes spin {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        
+        /* Add Orkney font if needed */
+        @font-face {
+          font-family: 'Orkney';
+          src: url('/fonts/Orkney-Regular.woff2') format('woff2');
+          font-weight: normal;
+          font-style: normal;
+          font-display: swap;
         }
       `}</style>
     </div>
