@@ -230,30 +230,29 @@ export default function AgentComponent() {
    * @property {Object} user - Styles for user messages (right-aligned, light green background).
    * @property {Object} agent - Styles for agent messages (left-aligned, light gray background).
    */
-  const bubbleStyles = {
-    user: {
-      alignSelf: "flex-end",
-      backgroundColor: "#DCF8C6",
-      color: "#000",
-      padding: "10px",
-      borderRadius: "10px 0 0 10px",
-      borderRight: "5px solid #8EDB5A",
-      margin: "0",
-      maxWidth: "80%",
-      fontSize: "12px",
-    },
-    agent: {
-      alignSelf: "flex-start",
-      backgroundColor: "#fff",
-      color: "#000",
-      padding: "10px",
-      borderRadius: "0 10px 10px 0",
-      borderLeft: "5px solid #aaf",
-      margin: "0",
-      maxWidth: "80%",
-      fontSize: "12px",
-    },
-  };
+ // Modify your bubbleStyles object
+const bubbleStyles = {
+  user: {
+    alignSelf: "flex-end",
+    backgroundColor: "#000", // Black user messages
+    color: "#fff", // White text
+    padding: "10px",
+    borderRadius: "15px", // More rounded for bubble feel
+    margin: "5px",
+    maxWidth: "80%",
+    fontSize: "12px",
+  },
+  agent: {
+    alignSelf: "flex-start",
+    backgroundColor: "#000", // Black agent messages
+    color: "#fff", // White text
+    padding: "10px",
+    borderRadius: "15px", // More rounded for bubble feel
+    margin: "5px",
+    maxWidth: "80%",
+    fontSize: "12px",
+  },
+};
 
   /**
    * Handles the click event on a suggested prompt.
@@ -302,13 +301,15 @@ export default function AgentComponent() {
       }}
     >
       {/* Descriptive header for the chat application */}
-      <div
-        className="chat-header"
-        style={{
-          marginBottom: "0px",
-          userSelect: "none",
-        }}
-      >
+<div
+  className="chat-header"
+  style={{
+    marginBottom: "0px",
+    userSelect: "none",
+    backgroundColor: "#000", // Black header
+    color: "#fff", // White text
+  }}
+>
         <div
           className="chat-title"
           style={{
