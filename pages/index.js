@@ -536,7 +536,7 @@ export default function AgentComponent() {
         
 @font-face {
   font-family: 'Orkney';
-  src: url('/fonts/orkney-regular.otf') format('opentype');
+  src: url('/fonts/orkney-regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -544,7 +544,7 @@ export default function AgentComponent() {
 
 @font-face {
   font-family: 'Orkney';
-  src: url('/fonts/orkney-bold.otf') format('opentype');
+  src: url('/fonts/orkney-bold.woff') format('woff');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
