@@ -74,24 +74,22 @@ export default function AgentComponent() {
     setUserId(getUserId());
   }, []);
 
-  // Rotate through prompt suggestions
+  // Rotate through prompt suggestions - always visible
   useEffect(() => {
-    if (conversation.length === 0) { // Only rotate when no conversation has started
-      const rotationInterval = setInterval(() => {
-        setPromptVisible(false); // Start fade out
-        
-        setTimeout(() => {
-          setCurrentPromptIndex((prevIndex) => 
-            (prevIndex + 1) % chatConfig.suggestedPrompts.length
-          );
-          setPromptVisible(true); // Start fade in after changing the prompt
-        }, 500); // Wait for fade out to complete
-        
-      }, 5000); // Change every 5 seconds
+    const rotationInterval = setInterval(() => {
+      setPromptVisible(false); // Start fade out
       
-      return () => clearInterval(rotationInterval);
-    }
-  }, [conversation.length]);
+      setTimeout(() => {
+        setCurrentPromptIndex((prevIndex) => 
+          (prevIndex + 1) % chatConfig.suggestedPrompts.length
+        );
+        setPromptVisible(true); // Start fade in after changing the prompt
+      }, 500); // Wait for fade out to complete
+      
+    }, 3000); // Change every 3 seconds
+    
+    return () => clearInterval(rotationInterval);
+  }, []);
 
   // Animation for loading circles
   useEffect(() => {
@@ -321,39 +319,37 @@ export default function AgentComponent() {
         </div>
       </div>
 
-      {/* Rotating Prompt suggestion - only shown if no conversation has started */}
-      {conversation.length === 0 && (
-        <div style={{ 
-          display: "flex", 
-          justifyContent: "flex-start", 
-          marginTop: "10px",
-          height: "40px", // Fixed height to prevent layout shift
-          alignItems: "center"
-        }}>
-          <div style={{ fontSize: "14px", marginRight: "10px" }}>
-            Try asking:
-          </div>
-          <div style={{ position: "relative", height: "30px" }}>
-            <button
-              onClick={() => handlePromptClick(chatConfig.suggestedPrompts[currentPromptIndex])}
-              style={{
-                backgroundColor: "#FFFFFF",
-                border: "none",
-                borderRadius: "999px",
-                padding: "6px 12px",
-                fontSize: "14px",
-                cursor: "pointer",
-                opacity: promptVisible ? 1 : 0,
-                transition: "opacity 0.5s ease",
-                position: "absolute",
-                whiteSpace: "nowrap",
-              }}
-            >
-              {chatConfig.suggestedPrompts[currentPromptIndex]}
-            </button>
-          </div>
+      {/* Rotating Prompt suggestion - always visible */}
+      <div style={{ 
+        display: "flex", 
+        justifyContent: "flex-start", 
+        marginTop: "10px",
+        height: "40px", // Fixed height to prevent layout shift
+        alignItems: "center"
+      }}>
+        <div style={{ fontSize: "14px", marginRight: "10px" }}>
+          Try asking:
         </div>
-      )}
+        <div style={{ position: "relative", height: "30px" }}>
+          <button
+            onClick={() => handlePromptClick(chatConfig.suggestedPrompts[currentPromptIndex])}
+            style={{
+              backgroundColor: "#FFFFFF",
+              border: "none",
+              borderRadius: "999px",
+              padding: "6px 12px",
+              fontSize: "14px",
+              cursor: "pointer",
+              opacity: promptVisible ? 1 : 0,
+              transition: "opacity 0.5s ease",
+              position: "absolute",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {chatConfig.suggestedPrompts[currentPromptIndex]}
+          </button>
+        </div>
+      </div>
 
       {/* Loading animation circles */}
       <div
