@@ -26,8 +26,7 @@ const chatConfig = {
   },
   // Suggestions for quick prompts
   suggestedPrompts: [
-    "Tell me about your design work",
-    "What projects are you proud of?",
+    "What is the project you're most proud of?",
     "How can I collaborate with you?",
     "What's your design philosophy?"
   ]

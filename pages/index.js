@@ -58,6 +58,10 @@ export default function AgentComponent() {
   const [isLoading, setIsLoading] = useState(false);
   // State to track the loading animation step (1-5)
   const [loadingStep, setLoadingStep] = useState(1);
+  // State to track current prompt suggestion index
+  const [currentPromptIndex, setCurrentPromptIndex] = useState(0);
+  // State to control the visibility of the prompt (for fade effect)
+  const [promptVisible, setPromptVisible] = useState(true);
   // Create a ref to track the end of the messages container.
   const messagesEndRef = useRef(null);
   // Initialize session ID and user ID states.
@@ -69,6 +73,25 @@ export default function AgentComponent() {
     setSessionId(getSessionId());
     setUserId(getUserId());
   }, []);
+
+  // Rotate through prompt suggestions
+  useEffect(() => {
+    if (conversation.length === 0) { // Only rotate when no conversation has started
+      const rotationInterval = setInterval(() => {
+        setPromptVisible(false); // Start fade out
+        
+        setTimeout(() => {
+          setCurrentPromptIndex((prevIndex) => 
+            (prevIndex + 1) % chatConfig.suggestedPrompts.length
+          );
+          setPromptVisible(true); // Start fade in after changing the prompt
+        }, 500); // Wait for fade out to complete
+        
+      }, 5000); // Change every 5 seconds
+      
+      return () => clearInterval(rotationInterval);
+    }
+  }, [conversation.length]);
 
   // Animation for loading circles
   useEffect(() => {
@@ -298,44 +321,39 @@ export default function AgentComponent() {
         </div>
       </div>
 
-      {/* Prompt suggestions */}
-      <div style={{ 
-        display: "flex", 
-        justifyContent: "flex-start", 
-        flexWrap: "wrap", 
-        marginTop: "10px",
-        gap: "8px"
-      }}>
-        <div style={{ fontSize: "14px", marginRight: "10px", alignSelf: "center" }}>
-          Some prompt ideas:
+      {/* Rotating Prompt suggestion - only shown if no conversation has started */}
+      {conversation.length === 0 && (
+        <div style={{ 
+          display: "flex", 
+          justifyContent: "flex-start", 
+          marginTop: "10px",
+          height: "40px", // Fixed height to prevent layout shift
+          alignItems: "center"
+        }}>
+          <div style={{ fontSize: "14px", marginRight: "10px" }}>
+            Try asking:
+          </div>
+          <div style={{ position: "relative", height: "30px" }}>
+            <button
+              onClick={() => handlePromptClick(chatConfig.suggestedPrompts[currentPromptIndex])}
+              style={{
+                backgroundColor: "#FFFFFF",
+                border: "none",
+                borderRadius: "999px",
+                padding: "6px 12px",
+                fontSize: "14px",
+                cursor: "pointer",
+                opacity: promptVisible ? 1 : 0,
+                transition: "opacity 0.5s ease",
+                position: "absolute",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {chatConfig.suggestedPrompts[currentPromptIndex]}
+            </button>
+          </div>
         </div>
-        <button
-          onClick={() => handlePromptClick("Tell me about your design work")}
-          style={{
-            backgroundColor: "#FFFFFF",
-            border: "none",
-            borderRadius: "999px",
-            padding: "6px 12px",
-            fontSize: "14px",
-            cursor: "pointer",
-          }}
-        >
-          Tell me about your design work
-        </button>
-        <button
-          onClick={() => handlePromptClick("What projects are you proud of?")}
-          style={{
-            backgroundColor: "#FFFFFF",
-            border: "none",
-            borderRadius: "999px",
-            padding: "6px 12px",
-            fontSize: "14px",
-            cursor: "pointer",
-          }}
-        >
-          What projects are you proud of?
-        </button>
-      </div>
+      )}
 
       {/* Loading animation circles */}
       <div
