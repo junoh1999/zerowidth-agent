@@ -1,8 +1,8 @@
 // =============================================================================
-// Chat Agent with Exact Styling Match (React + Vercel)
+// Chat Agent with User & Agent Bubbles (React + Vercel)
 //
 // This React component renders a chat interface styled as a rounded black rectangle 
-// with white input fields to match Jun's website aesthetic.
+// with message bubbles and animated loading indicators.
 //
 // Author: Modified from Thomas J McLeish's original
 // =============================================================================
@@ -56,21 +56,38 @@ export default function AgentComponent() {
   const [error, setError] = useState(null);
   // State to track if the agent is processing (loading state).
   const [isLoading, setIsLoading] = useState(false);
+  // State to track the loading animation step (1-5)
+  const [loadingStep, setLoadingStep] = useState(1);
   // Create a ref to track the end of the messages container.
   const messagesEndRef = useRef(null);
   // Initialize session ID and user ID states.
   const [sessionId, setSessionId] = useState("");
   const [userId, setUserId] = useState("");
-  // State to track active input (top or bottom)
-  const [activeInput, setActiveInput] = useState("bottom");
-  // State to track if the submit button is hovered.
-  const [isSubmitHovered, setIsSubmitHovered] = useState(false);
 
   // Initialize session ID and user ID on the client side
   useEffect(() => {
     setSessionId(getSessionId());
     setUserId(getUserId());
   }, []);
+
+  // Animation for loading circles
+  useEffect(() => {
+    let animationTimer;
+    if (isLoading) {
+      animationTimer = setInterval(() => {
+        setLoadingStep((prevStep) => {
+          // Cycle through steps 1-5
+          return prevStep >= 5 ? 1 : prevStep + 1;
+        });
+      }, 300); // Change animation step every 300ms
+    } else {
+      setLoadingStep(1); // Reset to initial state when not loading
+    }
+
+    return () => {
+      if (animationTimer) clearInterval(animationTimer);
+    };
+  }, [isLoading]);
 
   /**
    * Scrolls the chat container to the bottom to ensure the latest message is visible.
@@ -91,12 +108,7 @@ export default function AgentComponent() {
    */
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (activeInput === "top") {
-      submitMessage(message);
-      setActiveInput("bottom");
-    } else {
-      submitMessage(message);
-    }
+    submitMessage(message);
   };
 
   /**
@@ -182,16 +194,11 @@ export default function AgentComponent() {
     }
   };
 
-  const handleInputChange = (e) => {
-    setMessage(e.target.value);
-  };
-
-  const handleTopInputFocus = () => {
-    setActiveInput("top");
-  };
-
-  const handleBottomInputFocus = () => {
-    setActiveInput("bottom");
+  /**
+   * Handles clicking on a suggestion prompt.
+   */
+  const handlePromptClick = (prompt) => {
+    submitMessage(prompt);
   };
 
   return (
@@ -234,10 +241,10 @@ export default function AgentComponent() {
             <div
               key={index}
               style={{
-                alignSelf: msg.role === "user" ? "flex-start" : "flex-start",
-                backgroundColor: msg.role === "user" ? "#000000" : "#FFFFFF",
-                color: msg.role === "user" ? "#FFFFFF" : "#000000",
-                border: msg.role === "user" ? "1px solid #FFFFFF" : "none",
+                alignSelf: msg.role === "user" ? "flex-end" : "flex-start",
+                backgroundColor: msg.role === "user" ? "#FFFFFF" : "#000000",
+                color: msg.role === "user" ? "#000000" : "#FFFFFF",
+                border: msg.role === "user" ? "none" : "1px solid #FFFFFF",
                 borderRadius: "999px",
                 padding: "8px 16px",
                 maxWidth: "80%",
@@ -255,73 +262,140 @@ export default function AgentComponent() {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Input for "Tell me about your favorite project" */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <input
-            type="text"
-            placeholder="Tell me about your favorite project..."
-            value={activeInput === "top" ? message : ""}
-            onChange={handleInputChange}
-            onFocus={handleTopInputFocus}
-            style={{
-              width: "90%",
-              padding: "8px 16px",
-              borderRadius: "999px",
-              border: "none",
-              outline: "none",
-              fontSize: "14px",
-              backgroundColor: "#FFFFFF",
-            }}
-            onKeyPress={(e) => {
-              if (e.key === "Enter") {
-                handleSubmit(e);
-              }
-            }}
-          />
-        </div>
-
         {/* Input for "Ask me anything" */}
         <div
           style={{
             display: "flex",
             justifyContent: "center",
+            position: "relative",
+            zIndex: 5,
           }}
         >
-          <input
-            type="text"
-            placeholder="Ask me anything..."
-            value={activeInput === "bottom" ? message : ""}
-            onChange={handleInputChange}
-            onFocus={handleBottomInputFocus}
-            style={{
-              width: "90%",
-              padding: "8px 16px",
-              borderRadius: "999px",
-              border: "none",
-              outline: "none",
-              fontSize: "14px",
-              backgroundColor: "#FFFFFF",
-            }}
-            onKeyPress={(e) => {
-              if (e.key === "Enter") {
-                handleSubmit(e);
-              }
-            }}
-          />
+          <form onSubmit={handleSubmit} style={{ width: "100%" }}>
+            <input
+              type="text"
+              placeholder="Ask me anything..."
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              style={{
+                width: "100%",
+                padding: "8px 16px",
+                borderRadius: "999px",
+                border: "none",
+                outline: "none",
+                fontSize: "14px",
+                backgroundColor: "#FFFFFF",
+                boxSizing: "border-box",
+              }}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  handleSubmit(e);
+                }
+              }}
+            />
+            <button type="submit" style={{ display: "none" }}>Send</button>
+          </form>
         </div>
-
-        {/* Hidden form for handling submit */}
-        <form onSubmit={handleSubmit} style={{ display: "none" }}>
-          <button type="submit" disabled={isLoading}>
-            Send
-          </button>
-        </form>
       </div>
+
+      {/* Prompt suggestions */}
+      <div style={{ 
+        display: "flex", 
+        justifyContent: "flex-start", 
+        flexWrap: "wrap", 
+        marginTop: "10px",
+        gap: "8px"
+      }}>
+        <div style={{ fontSize: "14px", marginRight: "10px", alignSelf: "center" }}>
+          Some prompt ideas:
+        </div>
+        <button
+          onClick={() => handlePromptClick("Tell me about your design work")}
+          style={{
+            backgroundColor: "#FFFFFF",
+            border: "none",
+            borderRadius: "999px",
+            padding: "6px 12px",
+            fontSize: "14px",
+            cursor: "pointer",
+          }}
+        >
+          Tell me about your design work
+        </button>
+        <button
+          onClick={() => handlePromptClick("What projects are you proud of?")}
+          style={{
+            backgroundColor: "#FFFFFF",
+            border: "none",
+            borderRadius: "999px",
+            padding: "6px 12px",
+            fontSize: "14px",
+            cursor: "pointer",
+          }}
+        >
+          What projects are you proud of?
+        </button>
+      </div>
+
+      {/* Loading animation circles */}
+      <div
+        style={{
+          position: "relative",
+          height: "80px",
+          marginTop: "10px",
+          display: "flex",
+          justifyContent: "flex-end",
+          alignItems: "flex-start",
+        }}
+      >
+        {/* Large circle */}
+        <div
+          style={{
+            width: "40px",
+            height: "40px",
+            borderRadius: "50%",
+            backgroundColor: "#000",
+            opacity: [1, 2].includes(loadingStep) || !isLoading ? 1 : 0,
+            transition: "opacity 0.2s ease-in-out",
+            marginRight: "10px",
+          }}
+        ></div>
+
+        {/* Medium circle */}
+        <div
+          style={{
+            width: "25px",
+            height: "25px",
+            borderRadius: "50%",
+            backgroundColor: "#000",
+            opacity: [2, 3].includes(loadingStep) && isLoading ? 1 : 0,
+            transition: "opacity 0.2s ease-in-out",
+            marginRight: "5px",
+            marginTop: "5px",
+          }}
+        ></div>
+
+        {/* Small circle */}
+        <div
+          style={{
+            width: "15px",
+            height: "15px",
+            borderRadius: "50%",
+            backgroundColor: "#000",
+            opacity: [3, 4, 5].includes(loadingStep) && isLoading ? 1 : 0,
+            transition: "opacity 0.2s ease-in-out",
+            marginRight: "0",
+            marginTop: "10px",
+          }}
+        ></div>
+      </div>
+
+      {/* Error display */}
+      {error && (
+        <div style={{ color: "red", marginTop: "16px", fontSize: "12px" }}>
+          <strong>Error:</strong> {error}
+        </div>
+      )}
 
       {/* CSS styles */}
       <style jsx>{`
@@ -337,6 +411,22 @@ export default function AgentComponent() {
         .chat-messages {
           scrollbar-width: thin;
           scrollbar-color: #555 transparent;
+        }
+        
+        @font-face {
+          font-family: 'Orkney';
+          src: url('/fonts/orkney-regular.woff') format('woff');
+          font-weight: normal;
+          font-style: normal;
+          font-display: swap;
+        }
+        
+        @font-face {
+          font-family: 'Orkney';
+          src: url('/fonts/orkney-bold.woff') format('woff');
+          font-weight: bold;
+          font-style: normal;
+          font-display: swap;
         }
       `}</style>
     </div>
