@@ -434,9 +434,9 @@ export default function AgentComponent() {
         <div
           style={{
             position: "absolute",
-            width: "25px",
-            height: "25px",
-            left:"30%",
+            width: "30px",
+            height: "30px",
+            left:"38%",
             top:"75px",
             borderRadius: "50%",
             backgroundColor: "#000",
