@@ -2,7 +2,7 @@
 // Chat Agent with User & Agent Bubbles (React + Vercel)
 //
 // This React component renders a chat interface styled as a rounded black rectangle 
-// with message bubbles and animated loading indicators.
+// with message bubbles and an "Explore my thoughts..." header.
 //
 // Author: Modified from Thomas J McLeish's original
 // =============================================================================
@@ -227,35 +227,72 @@ export default function AgentComponent() {
       style={{
         position: "relative",
         width: "100%",
-        maxWidth: "400px", // Adjust width to match your design
+        maxWidth: "400px",
         margin: "0 auto",
-        fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif",
+        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif",
       }}
     >
       <div
         style={{
           backgroundColor: "#000000",
-          borderRadius: "24px", // Rounded corners like in your images
-          padding: "16px",
+          borderRadius: "24px",
+          padding: "20px",
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
           display: "flex",
           flexDirection: "column",
-          gap: "10px",
-          minHeight: "150px", // Minimum height to match design
+          gap: "20px",
+          minHeight: "240px",
         }}
       >
+        {/* "Explore my thoughts..." header */}
+        <div
+          style={{
+            color: "#FFFFFF",
+            fontSize: "20px",
+            fontWeight: "bold",
+            marginBottom: "10px",
+          }}
+        >
+          Explore my thoughts...
+        </div>
+        
+        {/* Tell me about your favorite project input */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            width: "100%",
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: "#FFFFFF",
+              color: "#777777",
+              padding: "8px 16px",
+              borderRadius: "999px",
+              fontSize: "14px",
+              width: "80%",
+              textAlign: "center",
+              alignSelf: "center",
+            }}
+          >
+            Tell me about your favorite project...
+          </div>
+        </div>
+
         {/* Chat messages */}
         <div
           className="chat-messages"
           style={{
             display: "flex",
             flexDirection: "column",
-            gap: "10px",
-            marginTop: "10px",
-            marginBottom: "10px",
+            gap: "15px",
             flexGrow: 1,
             overflowY: "auto",
-            maxHeight: "200px",
+            maxHeight: "150px",
+            marginTop: "0",
+            marginBottom: "15px",
+            paddingRight: "5px",
           }}
         >
           {conversation.map((msg, index) => (
@@ -283,6 +320,24 @@ export default function AgentComponent() {
           <div ref={messagesEndRef} />
         </div>
 
+        {conversation.length === 0 && (
+          <div
+            style={{
+              alignSelf: "flex-start",
+              backgroundColor: "#000000",
+              color: "#FFFFFF",
+              border: "1px solid #FFFFFF",
+              borderRadius: "999px",
+              padding: "8px 16px",
+              maxWidth: "80%",
+              fontSize: "14px",
+              marginBottom: "15px",
+            }}
+          >
+            My favorite project would have to be...
+          </div>
+        )}
+
         {/* Input for "Ask me anything" */}
         <div
           style={{
@@ -290,6 +345,7 @@ export default function AgentComponent() {
             justifyContent: "center",
             position: "relative",
             zIndex: 5,
+            marginTop: "auto",
           }}
         >
           <form onSubmit={handleSubmit} style={{ width: "100%" }}>
@@ -319,18 +375,20 @@ export default function AgentComponent() {
         </div>
       </div>
 
-      {/* Rotating Prompt suggestion - always visible */}
+      {/* Prompt suggestions */}
       <div style={{ 
         display: "flex", 
-        justifyContent: "flex-start", 
-        marginTop: "10px",
-        height: "40px", // Fixed height to prevent layout shift
-        alignItems: "center"
+        alignItems: "center",
+        marginTop: "15px",
+        height: "30px",
       }}>
-        <div style={{ fontSize: "14px", marginRight: "10px" }}>
-          Try asking:
+        <div style={{ 
+          fontSize: "14px", 
+          marginRight: "10px" 
+        }}>
+          Some prompt ideas:
         </div>
-        <div style={{ position: "relative", height: "30px" }}>
+        <div style={{ position: "relative" }}>
           <button
             onClick={() => handlePromptClick(chatConfig.suggestedPrompts[currentPromptIndex])}
             style={{
@@ -344,9 +402,11 @@ export default function AgentComponent() {
               transition: "opacity 0.5s ease",
               position: "absolute",
               whiteSpace: "nowrap",
+              top: "0",
+              left: "0",
             }}
           >
-            {chatConfig.suggestedPrompts[currentPromptIndex]}
+            Tell me about your design work
           </button>
         </div>
       </div>
@@ -354,9 +414,10 @@ export default function AgentComponent() {
       {/* Loading animation circles */}
       <div
         style={{
-          position: "relative",
+          position: "absolute",
+          bottom: "-80px",
+          right: "40px",
           height: "80px",
-          marginTop: "10px",
           display: "flex",
           justifyContent: "flex-end",
           alignItems: "flex-start",
@@ -369,8 +430,7 @@ export default function AgentComponent() {
             height: "40px",
             borderRadius: "50%",
             backgroundColor: "#000",
-            opacity: [1, 2].includes(loadingStep) || !isLoading ? 1 : 0,
-            transition: "opacity 0.2s ease-in-out",
+            opacity: 1,
             marginRight: "10px",
           }}
         ></div>
@@ -382,24 +442,9 @@ export default function AgentComponent() {
             height: "25px",
             borderRadius: "50%",
             backgroundColor: "#000",
-            opacity: [2, 3].includes(loadingStep) && isLoading ? 1 : 0,
-            transition: "opacity 0.2s ease-in-out",
+            opacity: 1,
             marginRight: "5px",
             marginTop: "5px",
-          }}
-        ></div>
-
-        {/* Small circle */}
-        <div
-          style={{
-            width: "15px",
-            height: "15px",
-            borderRadius: "50%",
-            backgroundColor: "#000",
-            opacity: [3, 4, 5].includes(loadingStep) && isLoading ? 1 : 0,
-            transition: "opacity 0.2s ease-in-out",
-            marginRight: "0",
-            marginTop: "10px",
           }}
         ></div>
       </div>
@@ -410,39 +455,6 @@ export default function AgentComponent() {
           <strong>Error:</strong> {error}
         </div>
       )}
-
-      {/* CSS styles */}
-      <style jsx>{`
-        .chat-messages::-webkit-scrollbar {
-          width: 4px;
-        }
-        .chat-messages::-webkit-scrollbar-track {
-          background: transparent;
-        }
-        .chat-messages::-webkit-scrollbar-thumb {
-          background-color: #555;
-        }
-        .chat-messages {
-          scrollbar-width: thin;
-          scrollbar-color: #555 transparent;
-        }
-        
-        @font-face {
-          font-family: 'Orkney';
-          src: url('/fonts/orkney-regular.woff') format('woff');
-          font-weight: normal;
-          font-style: normal;
-          font-display: swap;
-        }
-        
-        @font-face {
-          font-family: 'Orkney';
-          src: url('/fonts/orkney-bold.woff') format('woff');
-          font-weight: bold;
-          font-style: normal;
-          font-display: swap;
-        }
-      `}</style>
     </div>
   );
 }
