@@ -322,7 +322,7 @@ export default function AgentComponent() {
     zIndex: 5,
   }}
 >
-  <form onSubmit={handleSubmit} style={{ width: "100%" }}>
+<form onSubmit={handleSubmit} style={{ width: "100%" }} data-scroll-prevent="true">
     <div style={{ 
       position: "relative", 
       display: "flex",
