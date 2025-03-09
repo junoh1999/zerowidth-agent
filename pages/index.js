@@ -320,7 +320,7 @@ export default function AgentComponent() {
               style={{
                 fontFamily: "Orkney, sans-serif",
                 width: "100%",
-                padding: "8px 16px",
+                padding: "12px 16px",
                 borderRadius: "999px",
                 border: "none",
                 outline: "none",
@@ -339,7 +339,7 @@ export default function AgentComponent() {
   style={{
     width: "40px",
     height: "40px", 
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#000000",
     borderRadius: "50%",
     display: "flex",
     alignItems: "center",
