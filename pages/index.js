@@ -281,18 +281,20 @@ export default function AgentComponent() {
         </div>
         {/* Chat messages */}
         <div
-          className="chat-messages"
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "10px",
-            marginTop: "10px",
-            marginBottom: "10px",
-            flexGrow: 1,
-            overflowY: "auto",
-            maxHeight: "200px",
-          }}
-        >
+  className="chat-messages"
+  style={{
+    display: "flex",
+    flexDirection: "column",
+    gap: "10px",
+    marginTop: "10px",
+    marginBottom: "10px",
+    flexGrow: 1,
+    overflowY: "auto",
+    maxHeight: conversation.length > 0 ? "200px" : "0px", // No height when empty
+    height: conversation.length > 0 ? "auto" : "0px",     // No height when empty
+    transition: "all 0.3s ease-in-out"                    // Smooth growth
+  }}
+>
           {conversation.map((msg, index) => (
             <div
               key={index}
