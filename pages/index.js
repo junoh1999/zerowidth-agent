@@ -395,13 +395,7 @@ export default function AgentComponent() {
         cursor: "pointer",
         opacity: promptVisible ? 1 : 0,
         transition: "opacity 0.5s ease",
-        position: "absolute",
         whiteSpace: "nowrap",
-        display: "inline-flex", // Added flex display
-        alignItems: "center", // Center vertically
-        justifyContent: "center", // Center horizontally
-        lineHeight: "1", // Tighten line height
-        margin: 0, // Remove any default margin
       }}
     >
       {chatConfig.suggestedPrompts[currentPromptIndex]}
