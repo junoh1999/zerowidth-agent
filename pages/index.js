@@ -288,20 +288,13 @@ export default function AgentComponent() {
               }}
             >
               {msg.role === "agent" ? (
-                <ReactMarkdown>{msg.content}</ReactMarkdown>
+                <ReactMarkdown components={{
+                  p: ({node, ...props}) => <span {...props} />  // ✅ Remove extra paragraph spacing
+                }}>{msg.content}</ReactMarkdown>
               ) : (
                 msg.content
               )}
-              {msg.role === "agent" ? (
-  <ReactMarkdown components={{
-    p: ({node, ...props}) => <span {...props} />  // Render paragraphs as spans to remove extra spacing
-  }}>
-    {msg.content}
-  </ReactMarkdown>
-) : (
-  msg.content
-)}
-
+              
             </div>
           ))}
           <div ref={messagesEndRef} />
