@@ -316,7 +316,7 @@ export default function AgentComponent() {
           {...props} 
           target="_blank" 
           rel="noopener noreferrer" 
-          style={{ color: "#FFFFFF", textDecoration: "underline" }}
+          style={{ color: "#FFFFFF", textDecoration: "underline", fontWeight: "bold" }}
         />
       )  // Configure links to open in new tabs
     }}
