@@ -245,13 +245,15 @@ export default function AgentComponent() {
   return (
     <div style={{
       position: "relative",
-      height: "500px"
+      height: "500px",
+      fontFamily: "Orkney, sans-serif"
     }}>
     
     <div style={{
       position: "absolute",
       bottom: "0",
-      width: "100%"
+      width: "100%",
+      fontFamily: "Orkney, sans-serif"
     }}>
     <div
       style={{
@@ -359,7 +361,7 @@ export default function AgentComponent() {
       position: "relative", 
       display: "flex",
       alignItems: "center",
-      width: "100%"
+      width: "100%",
     }}>
       <input
         type="text"
