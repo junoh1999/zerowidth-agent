@@ -415,7 +415,7 @@ export default function AgentComponent() {
           alignItems: "flex-start",
         }}
       >
-        {/* Large circle */}
+        {/* Large circles */}
         <div
           style={{
             position: "absolute",
