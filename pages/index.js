@@ -436,7 +436,7 @@ export default function AgentComponent() {
             position: "absolute",
             width: "30px",
             height: "30px",
-            left:"30%",
+            left:"35%",
             top:"50px",
             borderRadius: "50%",
             backgroundColor: "#000",
