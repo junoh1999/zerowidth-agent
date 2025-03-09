@@ -340,7 +340,7 @@ export default function AgentComponent() {
         type="submit"
         style={{
           position: "absolute",
-          right: "6px", // Position on the right side of input
+          right: "3px", // Position on the right side of input
           width: "35px",
           height: "35px", 
           backgroundColor: "#000000",
