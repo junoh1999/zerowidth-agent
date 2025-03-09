@@ -261,7 +261,7 @@ export default function AgentComponent() {
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between", // This will push elements to the edges
-            minHeight: "150px",
+            minHeight: "100px",
             height: "auto" // Allow it to grow with content
         }}
 
