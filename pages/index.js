@@ -117,7 +117,14 @@ export default function AgentComponent() {
    * Scrolls the chat container to the bottom to ensure the latest message is visible.
    */
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    // Prevent the scroll event from bubbling up to the parent
+    if (messagesEndRef.current) {
+      const chatContainer = document.querySelector(".chat-messages");
+      if (chatContainer) {
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+        // Don't use scrollIntoView as it can affect parent page
+      }
+    }
   };
 
   // Scroll to the latest message whenever the conversation updates.
