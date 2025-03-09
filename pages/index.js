@@ -245,7 +245,7 @@ export default function AgentComponent() {
   return (
     <div style={{
       position: "relative",
-      height: "400px"
+      height: "500px"
     }}>
     
     <div style={{
