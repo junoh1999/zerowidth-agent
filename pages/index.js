@@ -369,8 +369,9 @@ export default function AgentComponent() {
   </form>
 </div>
       </div>
-
+        
       {/* Rotating Prompt suggestion - always visible */}
+
       <div style={{
   display: "flex",
   justifyContent: "flex-start",
@@ -378,10 +379,11 @@ export default function AgentComponent() {
   height: "40px", // Fixed height to prevent layout shift
   alignItems: "center"
 }}>
+
   <div style={{ fontSize: "14px", padding: "0px 0px", margin: "0px 0px", marginRight: "10px", fontStyle: "italic" }}>
     Try asking:
   </div>
-  <div style={{ position: "relative", height: "30px", padding: "0px 0px", margin: "0px 0px" }}>
+
     <button
       onClick={() => handlePromptClick(chatConfig.suggestedPrompts[currentPromptIndex])}
       style={{
@@ -406,7 +408,6 @@ export default function AgentComponent() {
     >
       {chatConfig.suggestedPrompts[currentPromptIndex]}
     </button>
-  </div>
 </div>
 
       {/* Loading animation circles */}
