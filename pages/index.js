@@ -344,7 +344,7 @@ export default function AgentComponent() {
           width: "35px",
           height: "35px", 
           backgroundColor: "#000000",
-          borderRadius: "50%",
+          borderRadius: "0.75em",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
