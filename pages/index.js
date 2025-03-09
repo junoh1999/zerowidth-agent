@@ -363,6 +363,11 @@ export default function AgentComponent() {
               transition: "opacity 0.5s ease",
               position: "absolute",
               whiteSpace: "nowrap",
+              display: "inline-flex",  // ✅ Fixes misalignment
+              alignItems: "center",  // ✅ Centers button text vertically
+              justifyContent: "center",  // ✅ Centers button content
+              lineHeight: "1",  // ✅ Prevents extra space inside the button
+              verticalAlign: "middle",  // ✅ Aligns button with surrounding text
             }}
           >
             {chatConfig.suggestedPrompts[currentPromptIndex]}
@@ -445,6 +450,12 @@ export default function AgentComponent() {
           scrollbar-width: thin;
           scrollbar-color: #555 transparent;
         }
+
+        button {
+    margin: 0;
+    padding: 6px 12px;
+    line-height: 1; /* Fix height inconsistencies */
+  }
         
         @font-face {
           font-family: 'Orkney';
