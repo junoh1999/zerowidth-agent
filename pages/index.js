@@ -326,7 +326,7 @@ export default function AgentComponent() {
         style={{
           fontFamily: "Orkney, sans-serif",
           width: "100%",
-          padding: "12px 16px",
+          padding: "8px 16px",
           paddingRight: "50px", // Add space for the button
           borderRadius: "999px",
           border: "none",
@@ -341,8 +341,8 @@ export default function AgentComponent() {
         style={{
           position: "absolute",
           right: "6px", // Position on the right side of input
-          width: "40px",
-          height: "40px", 
+          width: "30px",
+          height: "30px", 
           backgroundColor: "#000000",
           borderRadius: "50%",
           display: "flex",
@@ -378,7 +378,7 @@ export default function AgentComponent() {
         height: "40px", // Fixed height to prevent layout shift
         alignItems: "center"
       }}>
-        <div style={{ fontSize: "14px", marginRight: "10px" }}>
+        <div style={{ fontSize: "14px", marginRight: "10px",fontStyle: "italic" }}>
           Try asking:
         </div>
         <div style={{ position: "relative", height: "30px" }}>
@@ -388,19 +388,12 @@ export default function AgentComponent() {
               fontFamily: "Orkney, sans-serif",
               backgroundColor: "#FFFFFF",
               border: "none",
-              borderRadius: "999px",
-              padding: "6px 12px",
               fontSize: "14px",
               cursor: "pointer",
               opacity: promptVisible ? 1 : 0,
               transition: "opacity 0.5s ease",
               position: "absolute",
               whiteSpace: "nowrap",
-              display: "inline-flex",  // ✅ Fixes misalignment
-              alignItems: "center",  // ✅ Centers button text vertically
-              justifyContent: "center",  // ✅ Centers button content
-              lineHeight: "1",  // ✅ Prevents extra space inside the button
-              verticalAlign: "middle",  // ✅ Aligns button with surrounding text
             }}
           >
             {chatConfig.suggestedPrompts[currentPromptIndex]}
