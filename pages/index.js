@@ -307,13 +307,25 @@ export default function AgentComponent() {
                 fontSize: "14px",
               }}
             >
-              {msg.role === "agent" ? (
-                <ReactMarkdown components={{
-                  p: ({node, ...props}) => <span {...props} />  // ✅ Remove extra paragraph spacing
-                }}>{msg.content}</ReactMarkdown>
-              ) : (
-                msg.content
-              )}
+{msg.role === "agent" ? (
+  <ReactMarkdown 
+    components={{
+      p: ({node, ...props}) => <span {...props} />,  // Remove extra paragraph spacing
+      a: ({node, ...props}) => (
+        <a 
+          {...props} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          style={{ color: "#000000", textDecoration: "underline" }}
+        />
+      )  // Configure links to open in new tabs
+    }}
+  >
+    {msg.content}
+  </ReactMarkdown>
+) : (
+  msg.content
+)}
               
             </div>
           ))}
