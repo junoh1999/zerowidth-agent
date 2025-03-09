@@ -243,7 +243,21 @@ export default function AgentComponent() {
           gap: "10px",
           minHeight: "150px", // Minimum height to match design
         }}
+
+        
       >
+
+                {/* "Explore my thoughts..." header */}
+                <div
+          style={{
+            color: "#FFFFFF",
+            fontSize: "20px",
+            fontWeight: "bold",
+            marginBottom: "10px",
+          }}
+        >
+          Explore my thoughts...
+        </div>
         {/* Chat messages */}
         <div
           className="chat-messages"
