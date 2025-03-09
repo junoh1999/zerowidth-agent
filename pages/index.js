@@ -292,7 +292,7 @@ export default function AgentComponent() {
             marginBottom: "10px",
           }}
         >
-          Get to know me
+          Browse my brain...
         </div>
         {/* Chat messages */}
         <div
