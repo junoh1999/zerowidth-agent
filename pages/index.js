@@ -73,6 +73,7 @@ export default function AgentComponent() {
 
   // Initialize session ID and user ID on the client side
   useEffect(() => {
+    
     setSessionId(getSessionId());
     setUserId(getUserId());
   }, []);
@@ -93,6 +94,27 @@ export default function AgentComponent() {
     
     return () => clearInterval(rotationInterval);
   }, []);
+
+  // At the top of your component
+useEffect(() => {
+  // Create a simple font observer
+  const fontObserver = () => {
+    const testElement = document.createElement('span');
+    testElement.style.fontFamily = 'Orkney, sans-serif';
+    testElement.style.position = 'absolute';
+    testElement.style.visibility = 'hidden';
+    testElement.textContent = 'Test Font Loading';
+    document.body.appendChild(testElement);
+    
+    // Force a re-render once we confirm the font is loaded
+    setTimeout(() => {
+      document.body.removeChild(testElement);
+      setFontLoaded(true); // Add this state variable
+    }, 100);
+  };
+  
+  fontObserver();
+}, []);
 
   // Animation for loading circles
   useEffect(() => {
@@ -305,6 +327,8 @@ export default function AgentComponent() {
       maxHeight: conversation.length > 0 ? "150px" : "0",
       minHeight: conversation.length > 0 ? "auto" : "0",
       transition: "max-height 0.3s ease-in-out"
+
+      
     }}
   >
           {conversation.map((msg, index) => (
@@ -529,38 +553,23 @@ export default function AgentComponent() {
   }
       `}</style>
       <style jsx global>{`
-      /* Global font-face declarations */
-      @font-face {
-        font-family: 'Orkney';
-        src: url('/fonts/orkney-regular.woff') format('woff');
-        font-weight: normal;
-        font-style: normal;
-        font-display: swap;
-      }
+  @font-face {
+    font-family: 'Orkney';
+    src: url('/fonts/orkney-regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Orkney';
+    src: url('/fonts/orkney-bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+`}</style>
       
-      @font-face {
-        font-family: 'Orkney';
-        src: url('/fonts/orkney-bold.woff') format('woff');
-        font-weight: bold;
-        font-style: normal;
-        font-display: swap;
-      }
-      
-      /* Target placeholder specifically */
-      ::placeholder {
-        font-family: 'Orkney', sans-serif;
-      }
-      
-      /* Make sure the input itself has the font */
-      input {
-        font-family: 'Orkney', sans-serif;
-      }
-      
-      /* Target ReactMarkdown content */
-      .chat-messages span, .chat-messages a {
-        font-family: 'Orkney', sans-serif;
-      }
-    `}</style>
     </div>
   );
 }
