@@ -68,6 +68,8 @@ export default function AgentComponent() {
   const [sessionId, setSessionId] = useState("");
   const [userId, setUserId] = useState("");
 
+  const [isSubmitHovered, setIsSubmitHovered] = useState(false);
+
   // Initialize session ID and user ID on the client side
   useEffect(() => {
     setSessionId(getSessionId());
