@@ -67,6 +67,7 @@ export default function AgentComponent() {
   // Initialize session ID and user ID states.
   const [sessionId, setSessionId] = useState("");
   const [userId, setUserId] = useState("");
+  const [hasStartedConversation, setHasStartedConversation] = useState(false);
 
   const [isSubmitHovered, setIsSubmitHovered] = useState(false);
 
@@ -131,6 +132,7 @@ export default function AgentComponent() {
    */
   const handleSubmit = (e) => {
     e.preventDefault();
+    e.stopPropagation();
     submitMessage(message);
   };
 
@@ -140,6 +142,7 @@ export default function AgentComponent() {
   const submitMessage = async (userInput) => {
     // If the message is empty, do nothing.
     if (!userInput.trim()) return;
+    setHasStartedConversation(true);
 
     // Clear the input immediately after user submits
     setMessage("");
@@ -371,6 +374,7 @@ export default function AgentComponent() {
       </div>
         
       {/* Rotating Prompt suggestion - always visible */}
+      {!hasStartedConversation && (
       <div style={{
   display: "flex",
   justifyContent: "flex-end",
@@ -403,6 +407,7 @@ export default function AgentComponent() {
     </button>
   </div>
 </div>
+      )}
 
       {/* Loading animation circles */}
       <div
