@@ -371,35 +371,42 @@ export default function AgentComponent() {
       </div>
 
       {/* Rotating Prompt suggestion - always visible */}
-      <div style={{ 
-        display: "flex", 
-        justifyContent: "flex-start", 
-        marginTop: "10px",
-        height: "40px", // Fixed height to prevent layout shift
-        alignItems: "center"
-      }}>
-        <div style={{ fontSize: "14px", marginRight: "10px",fontStyle: "italic" }}>
-          Try asking:
-        </div>
-        <div style={{ position: "relative", height: "30px" }}>
-          <button
-            onClick={() => handlePromptClick(chatConfig.suggestedPrompts[currentPromptIndex])}
-            style={{
-              fontFamily: "Orkney, sans-serif",
-              backgroundColor: "#FFFFFF",
-              border: "none",
-              fontSize: "14px",
-              cursor: "pointer",
-              opacity: promptVisible ? 1 : 0,
-              transition: "opacity 0.5s ease",
-              position: "absolute",
-              whiteSpace: "nowrap",
-            }}
-          >
-            {chatConfig.suggestedPrompts[currentPromptIndex]}
-          </button>
-        </div>
-      </div>
+      <div style={{
+  display: "flex",
+  justifyContent: "flex-start",
+  marginTop: "10px",
+  height: "40px", // Fixed height to prevent layout shift
+  alignItems: "center"
+}}>
+  <div style={{ fontSize: "14px", marginRight: "10px", fontStyle: "italic" }}>
+    Try asking:
+  </div>
+  <div style={{ position: "relative", height: "30px" }}>
+    <button
+      onClick={() => handlePromptClick(chatConfig.suggestedPrompts[currentPromptIndex])}
+      style={{
+        fontFamily: "Orkney, sans-serif",
+        backgroundColor: "#FFFFFF",
+        border: "none",
+        borderRadius: "999px", // Re-added the border radius
+        padding: "0px 0px", // Explicit padding
+        fontSize: "14px",
+        cursor: "pointer",
+        opacity: promptVisible ? 1 : 0,
+        transition: "opacity 0.5s ease",
+        position: "absolute",
+        whiteSpace: "nowrap",
+        display: "inline-flex", // Added flex display
+        alignItems: "center", // Center vertically
+        justifyContent: "center", // Center horizontally
+        lineHeight: "1", // Tighten line height
+        margin: 0, // Remove any default margin
+      }}
+    >
+      {chatConfig.suggestedPrompts[currentPromptIndex]}
+    </button>
+  </div>
+</div>
 
       {/* Loading animation circles */}
       <div
