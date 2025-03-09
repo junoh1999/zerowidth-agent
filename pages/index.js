@@ -95,26 +95,7 @@ export default function AgentComponent() {
     return () => clearInterval(rotationInterval);
   }, []);
 
-  // At the top of your component
-useEffect(() => {
-  // Create a simple font observer
-  const fontObserver = () => {
-    const testElement = document.createElement('span');
-    testElement.style.fontFamily = 'Orkney, sans-serif';
-    testElement.style.position = 'absolute';
-    testElement.style.visibility = 'hidden';
-    testElement.textContent = 'Test Font Loading';
-    document.body.appendChild(testElement);
-    
-    // Force a re-render once we confirm the font is loaded
-    setTimeout(() => {
-      document.body.removeChild(testElement);
-      setFontLoaded(true); // Add this state variable
-    }, 100);
-  };
   
-  fontObserver();
-}, []);
 
   // Animation for loading circles
   useEffect(() => {
