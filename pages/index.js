@@ -243,6 +243,15 @@ export default function AgentComponent() {
   };
 
   return (
+    <div style={{
+      position: "relative",
+    }}>
+    
+    <div style={{
+      position: "absolute",
+      bottom: "0",
+      width: "100%"
+    }}>
     <div
       style={{
         position: "relative",
@@ -482,6 +491,8 @@ export default function AgentComponent() {
             marginTop: "5px",
           }}
         ></div>
+      </div>
+      </div>
       </div>
 
       {/* Error display */}
