@@ -371,18 +371,17 @@ export default function AgentComponent() {
       </div>
         
       {/* Rotating Prompt suggestion - always visible */}
-
       <div style={{
   display: "flex",
   justifyContent: "flex-start",
   marginTop: "10px",
   height: "40px", // Fixed height to prevent layout shift
+  alignItems: "center"
 }}>
-
   <div style={{ fontSize: "14px", padding: "0px 0px", margin: "0px 0px", marginRight: "10px", fontStyle: "italic" }}>
     Try asking:
   </div>
-
+  <div style={{ position: "relative", padding: "0px 0px", margin: "0px 0px" }}>
     <button
       onClick={() => handlePromptClick(chatConfig.suggestedPrompts[currentPromptIndex])}
       style={{
@@ -391,6 +390,7 @@ export default function AgentComponent() {
         border: "none",
         borderRadius: "999px", // Re-added the border radius
         padding: "0px 0px", // Explicit padding
+        margin: "0px 0px",
         fontSize: "14px",
         cursor: "pointer",
         opacity: promptVisible ? 1 : 0,
@@ -400,11 +400,13 @@ export default function AgentComponent() {
         display: "inline-flex", // Added flex display
         alignItems: "center", // Center vertically
         justifyContent: "center", // Center horizontally
+        lineHeight: "1", // Tighten line height
         margin: 0, // Remove any default margin
       }}
     >
       {chatConfig.suggestedPrompts[currentPromptIndex]}
     </button>
+  </div>
 </div>
 
       {/* Loading animation circles */}
