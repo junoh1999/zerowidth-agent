@@ -390,6 +390,7 @@ export default function AgentComponent() {
         border: "none",
         borderRadius: "999px", // Re-added the border radius
         padding: "0px 0px", // Explicit padding
+        margin: "0px 0px",
         fontSize: "14px",
         cursor: "pointer",
         opacity: promptVisible ? 1 : 0,
