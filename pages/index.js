@@ -418,6 +418,8 @@ export default function AgentComponent() {
         {/* Large circle */}
         <div
           style={{
+            position: "absolute",
+            left:"75%",
             width: "40px",
             height: "40px",
             borderRadius: "50%",
@@ -431,28 +433,17 @@ export default function AgentComponent() {
         {/* Medium circle */}
         <div
           style={{
+            position: "absolute",
             width: "25px",
             height: "25px",
+            left:"55%",
+            top:"50px",
             borderRadius: "50%",
             backgroundColor: "#000",
             opacity: [2, 3].includes(loadingStep) && isLoading ? 1 : 0,
             transition: "opacity 0.2s ease-in-out",
             marginRight: "5px",
             marginTop: "5px",
-          }}
-        ></div>
-
-        {/* Small circle */}
-        <div
-          style={{
-            width: "15px",
-            height: "15px",
-            borderRadius: "50%",
-            backgroundColor: "#000",
-            opacity: [3, 4, 5].includes(loadingStep) && isLoading ? 1 : 0,
-            transition: "opacity 0.2s ease-in-out",
-            marginRight: "0",
-            marginTop: "10px",
           }}
         ></div>
       </div>
