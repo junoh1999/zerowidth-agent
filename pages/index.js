@@ -251,6 +251,7 @@ export default function AgentComponent() {
     margin: "0 auto",
     fontFamily: "Orkney, system-ui, sans-serif"
   }}
+
     >
       <div
         style={{
@@ -280,20 +281,18 @@ export default function AgentComponent() {
         </div>
         {/* Chat messages */}
         <div
-  className="chat-messages"
-  style={{
-    display: "flex",
-    flexDirection: "column",
-    gap: "10px",
-    marginTop: "10px",
-    marginBottom: "10px",
-    flexGrow: 1,
-    overflowY: "auto",
-    maxHeight: conversation.length > 0 ? "200px" : "0px", // Start with no height, expand as messages are added
-    minHeight: conversation.length > 0 ? "100px" : "0px",
-    transition: "max-height 0.3s ease-in-out" // Smooth transition for height changes
-  }}
->
+          className="chat-messages"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+            marginTop: "10px",
+            marginBottom: "10px",
+            flexGrow: 1,
+            overflowY: "auto",
+            maxHeight: "200px",
+          }}
+        >
           {conversation.map((msg, index) => (
             <div
               key={index}
