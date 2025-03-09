@@ -381,7 +381,7 @@ export default function AgentComponent() {
   <div style={{ fontSize: "14px", padding: "0px 0px", margin: "0px 0px", marginRight: "10px", fontStyle: "italic" }}>
     Try asking:
   </div>
-  <div style={{ position: "relative", padding: "0px 0px", margin: "0px 0px" }}>
+  <div style={{ padding: "0px 0px", margin: "0px 0px" }}>
     <button
       onClick={() => handlePromptClick(chatConfig.suggestedPrompts[currentPromptIndex])}
       style={{
