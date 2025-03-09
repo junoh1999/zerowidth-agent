@@ -341,8 +341,8 @@ export default function AgentComponent() {
         style={{
           position: "absolute",
           right: "6px", // Position on the right side of input
-          width: "30px",
-          height: "30px", 
+          width: "25px",
+          height: "25px", 
           backgroundColor: "#000000",
           borderRadius: "50%",
           display: "flex",
@@ -373,7 +373,8 @@ export default function AgentComponent() {
       {/* Rotating Prompt suggestion - always visible */}
       <div style={{
   display: "flex",
-  justifyContent: "flex-start",
+  justifyContent: "flex-end",
+  paddingRight: "22px",
   marginTop: "10px",
   height: "40px", // Fixed height to prevent layout shift
   alignItems: "center"
