@@ -300,7 +300,7 @@ export default function AgentComponent() {
       marginBottom: "10px",
       flexGrow: 1,
       overflowY: "auto",
-      maxHeight: conversation.length > 0 ? "200px" : "0",
+      maxHeight: conversation.length > 0 ? "150px" : "0",
       minHeight: conversation.length > 0 ? "auto" : "0",
       transition: "max-height 0.3s ease-in-out"
     }}
