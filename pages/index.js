@@ -322,7 +322,7 @@ export default function AgentComponent() {
     zIndex: 5,
   }}
 >
-<form onSubmit={handleSubmit} style={{ width: "100%" }} data-scroll-prevent="true">
+<div style={{ width: "100%" }}>
     <div style={{ 
       position: "relative", 
       display: "flex",
@@ -348,8 +348,8 @@ export default function AgentComponent() {
           boxSizing: "border-box",
         }}
       />
-      <button 
-        type="submit"
+      <div 
+        onClick={() => submitMessage(message)}
         style={{
           position: "absolute",
           right: "4px", // Position on the right side of input
@@ -376,9 +376,9 @@ export default function AgentComponent() {
             }} 
           />
         )}
-      </button>
+      </div>
     </div>
-  </form>
+  </div>
 </div>
       </div>
         
