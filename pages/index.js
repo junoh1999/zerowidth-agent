@@ -243,26 +243,26 @@ export default function AgentComponent() {
   };
 
   return (
-<div
-  style={{
-    position: "relative",
-    width: "100%",
-    maxWidth: conversation.length > 0 ? "400px" : "320px", // Smaller initial width, grows when messages are added
-    margin: "0 auto",
-    fontFamily: "Orkney, system-ui, sans-serif"
-  }}
-
+    <div
+      style={{
+        position: "relative",
+        width: "100%",
+        maxWidth: "400px", // Adjust width to match your design
+        margin: "0 auto",
+        fontFamily: "Orkney, system-ui, sans-serif"
+      }}
     >
       <div
-        style={{
-          backgroundColor: "#000000",
-          borderRadius: "24px", // Rounded corners like in your images
-          padding: "22px",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-          minHeight: "150px", // Minimum height to match design
+          style={{
+            backgroundColor: "#000000",
+            borderRadius: "24px",
+            padding: "22px",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between", // This will push elements to the edges
+            minHeight: "150px",
+            height: "auto" // Allow it to grow with content
         }}
 
         
@@ -281,20 +281,20 @@ export default function AgentComponent() {
         </div>
         {/* Chat messages */}
         <div
-  className="chat-messages"
-  style={{
-    display: "flex",
-    flexDirection: "column",
-    gap: "10px",
-    marginTop: "10px",
-    marginBottom: "10px",
-    flexGrow: 1,
-    overflowY: "auto",
-    maxHeight: conversation.length > 0 ? "200px" : "0px", // No height when empty
-    height: conversation.length > 0 ? "auto" : "0px",     // No height when empty
-    transition: "all 0.3s ease-in-out"                    // Smooth growth
-  }}
->
+    className="chat-messages"
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      gap: "10px",
+      marginTop: "10px",
+      marginBottom: "10px",
+      flexGrow: 1,
+      overflowY: "auto",
+      maxHeight: conversation.length > 0 ? "200px" : "0",
+      minHeight: conversation.length > 0 ? "auto" : "0",
+      transition: "max-height 0.3s ease-in-out"
+    }}
+  >
           {conversation.map((msg, index) => (
             <div
               key={index}
