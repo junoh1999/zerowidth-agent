@@ -261,7 +261,7 @@ export default function AgentComponent() {
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between", // This will push elements to the edges
-            minHeight: "100px",
+            minHeight: "80px",
             height: "auto" // Allow it to grow with content
         }}
 
@@ -415,7 +415,7 @@ export default function AgentComponent() {
   alignItems: "center"
 }}>
   <div style={{ fontSize: "14px", padding: "0px 0px", margin: "0px 0px", marginRight: "10px", fontStyle: "italic" }}>
-    Try asking:
+    Try:
   </div>
   <div style={{ padding: "0px 0px", margin: "0px 0px" }}>
     <button
