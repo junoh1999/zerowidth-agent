@@ -229,7 +229,7 @@ export default function AgentComponent() {
         width: "100%",
         maxWidth: "400px", // Adjust width to match your design
         margin: "0 auto",
-        fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif",
+        fontFamily: "Orkney, system-ui, sans-serif"
       }}
     >
       <div
