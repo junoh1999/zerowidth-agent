@@ -136,6 +136,14 @@ export default function AgentComponent() {
     submitMessage(message);
   };
 
+  const preventScrollOnEnter = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      e.stopPropagation();
+      submitMessage(message);
+    }
+  };
+
   /**
    * Handles the submission of the chat input form.
    */
@@ -326,6 +334,7 @@ export default function AgentComponent() {
         placeholder="Ask me anything..."
         value={message}
         onChange={(e) => setMessage(e.target.value)}
+        onKeyDown={preventScrollOnEnter}
         style={{
           fontFamily: "Orkney, sans-serif",
           width: "100%",
