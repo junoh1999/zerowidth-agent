@@ -7,10 +7,10 @@
 // Author: Modified from Thomas J McLeish's original
 // =============================================================================
 
-import chatConfig from "../config/config";
-import { useState, useEffect, useRef } from "react";
-import ReactMarkdown from "react-markdown";
-import { v4 as uuidv4 } from "uuid";
+import chatConfig from "../config/config"; // Import chat settings
+import { useState, useEffect, useRef } from "react"; //React hooks
+import ReactMarkdown from "react-markdown"; //Allows rendering markdown, or text formatting
+import { v4 as uuidv4 } from "uuid"; //Session uids
 
 /**
  * Retrieves or generates a session ID and stores it in sessionStorage.
@@ -236,7 +236,7 @@ export default function AgentComponent() {
         style={{
           backgroundColor: "#000000",
           borderRadius: "24px", // Rounded corners like in your images
-          padding: "16px",
+          padding: "22px",
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
           display: "flex",
           flexDirection: "column",
@@ -292,6 +292,16 @@ export default function AgentComponent() {
               ) : (
                 msg.content
               )}
+              {msg.role === "agent" ? (
+  <ReactMarkdown components={{
+    p: ({node, ...props}) => <span {...props} />  // Render paragraphs as spans to remove extra spacing
+  }}>
+    {msg.content}
+  </ReactMarkdown>
+) : (
+  msg.content
+)}
+
             </div>
           ))}
           <div ref={messagesEndRef} />
@@ -313,6 +323,7 @@ export default function AgentComponent() {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               style={{
+                fontFamily: "Orkney, sans-serif",
                 width: "100%",
                 padding: "8px 16px",
                 borderRadius: "999px",
@@ -348,6 +359,7 @@ export default function AgentComponent() {
           <button
             onClick={() => handlePromptClick(chatConfig.suggestedPrompts[currentPromptIndex])}
             style={{
+              fontFamily: "Orkney, sans-serif",
               backgroundColor: "#FFFFFF",
               border: "none",
               borderRadius: "999px",
