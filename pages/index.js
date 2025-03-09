@@ -276,7 +276,7 @@ export default function AgentComponent() {
             marginBottom: "10px",
           }}
         >
-          Explore my thoughts...
+          Get to know me
         </div>
         {/* Chat messages */}
         <div
