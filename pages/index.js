@@ -424,7 +424,7 @@ export default function AgentComponent() {
             height: "50px",
             borderRadius: "50%",
             backgroundColor: "#000",
-            opacity: [1, 2].includes(loadingStep) || !isLoading ? 1 : 0,
+            opacity: [4, 5].includes(loadingStep) || !isLoading ? 1 : 0,
             transition: "opacity 0.2s ease-in-out",
             marginRight: "10px",
           }}
@@ -440,7 +440,7 @@ export default function AgentComponent() {
             top:"75px",
             borderRadius: "50%",
             backgroundColor: "#000",
-            opacity: [2, 3].includes(loadingStep) && isLoading ? 1 : 0,
+            opacity: (!isLoading || [3, 4].includes(loadingStep)) ? 1 : 0,
             transition: "opacity 0.2s ease-in-out",
             marginRight: "5px",
             marginTop: "5px",
