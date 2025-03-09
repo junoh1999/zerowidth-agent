@@ -332,7 +332,7 @@ export default function AgentComponent() {
                 }
               }}
             />
-            <button type="submit" style={{ display: "none" }}>Send</button>
+            <button type="submit" style={{ display: "flex" }}>Send</button>
           </form>
         </div>
       </div>
