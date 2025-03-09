@@ -320,6 +320,7 @@ export default function AgentComponent() {
                 maxWidth: "80%",
                 wordBreak: "break-word",
                 fontSize: "14px",
+                fontFamily: "Orkney, sans-serif",
               }}
             >
 {msg.role === "agent" ? (
@@ -526,23 +527,40 @@ export default function AgentComponent() {
     padding: 6px 12px;
     line-height: 1; /* Fix height inconsistencies */
   }
-        
-        @font-face {
-          font-family: 'Orkney';
-          src: url('/fonts/orkney-regular.woff') format('woff');
-          font-weight: normal;
-          font-style: normal;
-          font-display: swap;
-        }
-        
-        @font-face {
-          font-family: 'Orkney';
-          src: url('/fonts/orkney-bold.woff') format('woff');
-          font-weight: bold;
-          font-style: normal;
-          font-display: swap;
-        }
       `}</style>
+      <style jsx global>{`
+      /* Global font-face declarations */
+      @font-face {
+        font-family: 'Orkney';
+        src: url('/fonts/orkney-regular.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+      
+      @font-face {
+        font-family: 'Orkney';
+        src: url('/fonts/orkney-bold.woff') format('woff');
+        font-weight: bold;
+        font-style: normal;
+        font-display: swap;
+      }
+      
+      /* Target placeholder specifically */
+      ::placeholder {
+        font-family: 'Orkney', sans-serif;
+      }
+      
+      /* Make sure the input itself has the font */
+      input {
+        font-family: 'Orkney', sans-serif;
+      }
+      
+      /* Target ReactMarkdown content */
+      .chat-messages span, .chat-messages a {
+        font-family: 'Orkney', sans-serif;
+      }
+    `}</style>
     </div>
   );
 }
