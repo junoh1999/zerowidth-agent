@@ -302,69 +302,72 @@ export default function AgentComponent() {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Input for "Ask me anything" */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            position: "relative",
-            zIndex: 5,
-          }}
-        >
-          <form onSubmit={handleSubmit} style={{ width: "100%" }}>
-            <input
-              type="text"
-              placeholder="Ask me anything..."
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              style={{
-                fontFamily: "Orkney, sans-serif",
-                width: "100%",
-                padding: "12px 16px",
-                borderRadius: "999px",
-                border: "none",
-                outline: "none",
-                fontSize: "14px",
-                backgroundColor: "#FFFFFF",
-                boxSizing: "border-box",
-              }}
-              onKeyPress={(e) => {
-                if (e.key === "Enter") {
-                  handleSubmit(e);
-                }
-              }}
-            />
-<div 
-  onClick={handleSubmit}
+    {/* Input for "Ask me anything" */}
+<div
   style={{
-    width: "40px",
-    height: "40px", 
-    backgroundColor: "#000000",
-    borderRadius: "50%",
     display: "flex",
-    alignItems: "center",
     justifyContent: "center",
-    cursor: "pointer",
-    position: "absolute",
-    bottom: "-20px",
-    left: "20px",
+    position: "relative",
+    zIndex: 5,
   }}
 >
-  {isLoading ? (
-    <div className="loading-spinner" style={{ width: "20px", height: "20px" }} />
-  ) : (
-    <img 
-      src="/arrow_upward.svg" 
-      alt="Submit" 
-      style={{ 
-        width: "20px", 
-        height: "20px" 
-      }} 
-    />
-  )}
+  <form onSubmit={handleSubmit} style={{ width: "100%" }}>
+    <div style={{ 
+      position: "relative", 
+      display: "flex",
+      alignItems: "center",
+      width: "100%"
+    }}>
+      <input
+        type="text"
+        placeholder="Ask me anything..."
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        style={{
+          fontFamily: "Orkney, sans-serif",
+          width: "100%",
+          padding: "12px 16px",
+          paddingRight: "50px", // Add space for the button
+          borderRadius: "999px",
+          border: "none",
+          outline: "none",
+          fontSize: "14px",
+          backgroundColor: "#FFFFFF",
+          boxSizing: "border-box",
+        }}
+      />
+      <button 
+        type="submit"
+        style={{
+          position: "absolute",
+          right: "6px", // Position on the right side of input
+          width: "40px",
+          height: "40px", 
+          backgroundColor: "#000000",
+          borderRadius: "50%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          cursor: "pointer",
+          border: "none",
+        }}
+      >
+        {isLoading ? (
+          <div className="loading-spinner" style={{ width: "20px", height: "20px" }} />
+        ) : (
+          <img 
+            src="/arrow_upward.svg" 
+            alt="Submit" 
+            style={{ 
+              width: "20px", 
+              height: "20px" 
+            }} 
+          />
+        )}
+      </button>
+    </div>
+  </form>
 </div>
-          </form>
-        </div>
       </div>
 
       {/* Rotating Prompt suggestion - always visible */}
