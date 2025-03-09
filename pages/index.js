@@ -282,7 +282,7 @@ export default function AgentComponent() {
                 backgroundColor: msg.role === "user" ? "#FFFFFF" : "#000000",
                 color: msg.role === "user" ? "#000000" : "#FFFFFF",
                 border: msg.role === "user" ? "none" : "1px solid #FFFFFF",
-                borderRadius: "999px",
+                borderRadius: "0.75em",
                 padding: "8px 16px",
                 maxWidth: "80%",
                 wordBreak: "break-word",
@@ -326,9 +326,9 @@ export default function AgentComponent() {
         style={{
           fontFamily: "Orkney, sans-serif",
           width: "100%",
-          padding: "8px 16px",
+          padding: "12px 20px",
           paddingRight: "50px", // Add space for the button
-          borderRadius: "999px",
+          borderRadius: "0.75em",
           border: "none",
           outline: "none",
           fontSize: "14px",
@@ -341,8 +341,8 @@ export default function AgentComponent() {
         style={{
           position: "absolute",
           right: "6px", // Position on the right side of input
-          width: "25px",
-          height: "25px", 
+          width: "35px",
+          height: "35px", 
           backgroundColor: "#000000",
           borderRadius: "50%",
           display: "flex",
@@ -388,9 +388,9 @@ export default function AgentComponent() {
       style={{
         fontFamily: "Orkney, sans-serif",
         backgroundColor: "#FFFFFF",
-        border: "none",
-        borderRadius: "999px", // Re-added the border radius
-        padding: "0px 0px", // Explicit padding
+        border: "1px solid #525252",
+        borderRadius: "0.75em", 
+        padding: "8px 16px", // Explicit padding
         margin: "0px 0px",
         fontSize: "14px",
         cursor: "pointer",
