@@ -21,8 +21,8 @@ const chatConfig = {
   },
   suggestedPromptsTitle: "Try asking:",
   suggestedPrompts: [
-    "Tell me about yourself",
     "What projects are you working on?",
+    "Tell me about yourself.",
     "What is your greatest strength?",
   ],
   chatInputPlaceholder: "Type your message here...",
