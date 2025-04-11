@@ -292,7 +292,7 @@ export default function AgentComponent() {
             marginBottom: "10px",
           }}
         >
-          Browse my brain...
+          Ask my AI self...
         </div>
         {/* Chat messages */}
         <div
