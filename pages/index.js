@@ -272,7 +272,7 @@ export default function AgentComponent() {
       <div
           style={{
             backgroundColor: "#000000",
-            borderRadius: "24px",
+            borderRadius: "8px",
             padding: "22px",
             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
             display: "flex",
