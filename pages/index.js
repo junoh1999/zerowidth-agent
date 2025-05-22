@@ -437,7 +437,20 @@ export default function AgentComponent() {
   height: "40px", // Fixed height to prevent layout shift
   alignItems: "center"
 }}>
-  <div style={{ fontSize: "14px", padding: "0px 0px", margin: "0px 0px", marginRight: "10px", fontStyle: "italic" }}>
+  <div 
+    onMouseEnter={() => setIsSuggestionHovered(true)}
+    onMouseLeave={() => setIsSuggestionHovered(false)}
+    style={{ 
+      fontSize: "14px", 
+      padding: "0px 0px", 
+      margin: "0px 0px", 
+      marginRight: "5px", // Adjust this value to change spacing between "Try:" and button
+      fontStyle: "italic",
+      color: isSuggestionHovered ? "#818181" : "inherit",
+      transition: "color 300ms ease",
+      cursor: "pointer"
+    }}
+  >
     Try:
   </div>
   <div style={{ padding: "0px 0px", margin: "0px 0px" }}>
@@ -447,7 +460,7 @@ export default function AgentComponent() {
       onMouseLeave={() => setIsSuggestionHovered(false)}
       style={{
         fontFamily: "Orkney, sans-serif",
-        backgroundColor: isSuggestionHovered ? "#ededed" : "#FFFFFF",
+        backgroundColor: "#FFFFFF", // Removed hover background change
         border: "none", // Removed border width
         borderRadius: "0.75em", 
         padding: "8px 16px", // Explicit padding
@@ -455,7 +468,7 @@ export default function AgentComponent() {
         fontSize: "14px",
         cursor: "pointer",
         opacity: promptVisible ? 1 : 0,
-        transition: "opacity 0.5s ease, background-color 300ms ease",
+        transition: "opacity 0.5s ease", // Removed background-color transition
         whiteSpace: "nowrap",
       }}
     >
