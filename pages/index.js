@@ -543,7 +543,7 @@ export default function AgentComponent() {
 
         button {
     margin: 0;
-    padding: 8px 12px;
+    padding: 8px 0px;
     line-height: 1; /* Fix height inconsistencies */
   }
       `}</style>
