@@ -441,7 +441,7 @@ export default function AgentComponent() {
     fontSize: "14px", 
     padding: "0px 0px", 
     margin: "0px 0px", 
-    marginRight: "5px", // Adjust this value to change spacing between "Try:" and button
+    marginRight: "2px", // Adjust this value to change spacing between "Try:" and button
     fontStyle: "italic"
   }}>
     Try:
