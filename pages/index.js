@@ -287,7 +287,7 @@ export default function AgentComponent() {
                 <div
           style={{
             color: "#FFFFFF",
-            fontSize: "20px",
+            fontSize: "16px",
             fontWeight: "bold",
             marginBottom: "10px",
           }}
