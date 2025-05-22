@@ -437,20 +437,13 @@ export default function AgentComponent() {
   height: "40px", // Fixed height to prevent layout shift
   alignItems: "center"
 }}>
-  <div 
-    onMouseEnter={() => setIsSuggestionHovered(true)}
-    onMouseLeave={() => setIsSuggestionHovered(false)}
-    style={{ 
-      fontSize: "14px", 
-      padding: "0px 0px", 
-      margin: "0px 0px", 
-      marginRight: "5px", // Adjust this value to change spacing between "Try:" and button
-      fontStyle: "italic",
-      color: isSuggestionHovered ? "#818181" : "inherit",
-      transition: "color 300ms ease",
-      cursor: "pointer"
-    }}
-  >
+  <div style={{ 
+    fontSize: "14px", 
+    padding: "0px 0px", 
+    margin: "0px 0px", 
+    marginRight: "5px", // Adjust this value to change spacing between "Try:" and button
+    fontStyle: "italic"
+  }}>
     Try:
   </div>
   <div style={{ padding: "0px 0px", margin: "0px 0px" }}>
@@ -460,16 +453,17 @@ export default function AgentComponent() {
       onMouseLeave={() => setIsSuggestionHovered(false)}
       style={{
         fontFamily: "Orkney, sans-serif",
-        backgroundColor: "#FFFFFF", // Removed hover background change
-        border: "none", // Removed border width
+        backgroundColor: "#FFFFFF",
+        border: "none",
         borderRadius: "0.75em", 
-        padding: "8px 16px", // Explicit padding
+        padding: "6px 12px", // Reduce this value to make button smaller
         margin: "0px 0px",
         fontSize: "14px",
         cursor: "pointer",
         opacity: promptVisible ? 1 : 0,
-        transition: "opacity 0.5s ease", // Removed background-color transition
+        transition: "opacity 0.5s ease, color 300ms ease",
         whiteSpace: "nowrap",
+        color: isSuggestionHovered ? "#818181" : "#000000",
       }}
     >
       {chatConfig.suggestedPrompts[currentPromptIndex]}
@@ -549,7 +543,7 @@ export default function AgentComponent() {
 
         button {
     margin: 0;
-    padding: 6px 12px;
+    padding: 8px 12px;
     line-height: 1; /* Fix height inconsistencies */
   }
       `}</style>
