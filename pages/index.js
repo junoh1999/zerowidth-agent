@@ -69,7 +69,9 @@ export default function AgentComponent() {
   const [userId, setUserId] = useState("");
   const [hasStartedConversation, setHasStartedConversation] = useState(false);
 
+  // Hover states
   const [isSubmitHovered, setIsSubmitHovered] = useState(false);
+  const [isSuggestionHovered, setIsSuggestionHovered] = useState(false);
 
   // Initialize session ID and user ID on the client side
   useEffect(() => {
@@ -390,18 +392,21 @@ export default function AgentComponent() {
       />
       <div 
         onClick={() => submitMessage(message)}
+        onMouseEnter={() => setIsSubmitHovered(true)}
+        onMouseLeave={() => setIsSubmitHovered(false)}
         style={{
           position: "absolute",
           right: "4px", // Position on the right side of input
           width: "35px",
           height: "35px", 
-          backgroundColor: "#000000",
+          backgroundColor: isSubmitHovered ? "#818181" : "#000000",
           borderRadius: "0.75em",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           cursor: "pointer",
           border: "none",
+          transition: "background-color 300ms ease",
         }}
       >
         {isLoading ? (
@@ -438,17 +443,19 @@ export default function AgentComponent() {
   <div style={{ padding: "0px 0px", margin: "0px 0px" }}>
     <button
       onClick={() => handlePromptClick(chatConfig.suggestedPrompts[currentPromptIndex])}
+      onMouseEnter={() => setIsSuggestionHovered(true)}
+      onMouseLeave={() => setIsSuggestionHovered(false)}
       style={{
         fontFamily: "Orkney, sans-serif",
-        backgroundColor: "#FFFFFF",
-        border: "1px solid #525252",
+        backgroundColor: isSuggestionHovered ? "#ededed" : "#FFFFFF",
+        border: "none", // Removed border width
         borderRadius: "0.75em", 
         padding: "8px 16px", // Explicit padding
         margin: "0px 0px",
         fontSize: "14px",
         cursor: "pointer",
         opacity: promptVisible ? 1 : 0,
-        transition: "opacity 0.5s ease",
+        transition: "opacity 0.5s ease, background-color 300ms ease",
         whiteSpace: "nowrap",
       }}
     >
