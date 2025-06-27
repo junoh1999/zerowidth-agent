@@ -477,7 +477,7 @@ export default function AgentComponent() {
         style={{
           position: "relative",
           height: "60px",
-          marginTop: "25px",
+          marginTop: "15px",
           display: "flex",
           justifyContent: "flex-end",
           alignItems: "flex-start",
