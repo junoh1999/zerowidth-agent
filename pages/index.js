@@ -275,7 +275,7 @@ export default function AgentComponent() {
   display: "flex",
   justifyContent: "flex-end",
   paddingRight: "22px",
-  marginBottom: "6px",
+  marginBottom: "3px",
   height: "40px", // Fixed height to prevent layout shift
   alignItems: "center"
 }}>
