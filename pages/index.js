@@ -427,16 +427,15 @@ export default function AgentComponent() {
 </div>
       </div>
         
-{/* Always render but hide after conversation starts */}
-<div style={{
+      {/* Rotating Prompt suggestion - always visible */}
+      {!hasStartedConversation && (
+      <div style={{
   display: "flex",
   justifyContent: "flex-end",
   paddingRight: "22px",
   marginTop: "10px",
   height: "40px", // Fixed height to prevent layout shift
-  alignItems: "center",
-  visibility: hasStartedConversation ? "hidden" : "visible",
-  pointerEvents: hasStartedConversation ? "none" : "auto",
+  alignItems: "center"
 }}>
   <div style={{ 
     fontSize: "14px", 
@@ -465,23 +464,20 @@ export default function AgentComponent() {
         transition: "opacity 0.5s ease, color 300ms ease",
         whiteSpace: "nowrap",
         color: isSuggestionHovered ? "#818181" : "#000000",
-        visibility: hasStartedConversation ? "hidden" : "visible",
-      pointerEvents: hasStartedConversation ? "none" : "auto",
       }}
     >
       {chatConfig.suggestedPrompts[currentPromptIndex]}
     </button>
   </div>
 </div>
-      </div>
+      )}
 
       {/* Loading animation circles */}
       <div
         style={{
-          pointerEvents: "none",
           position: "relative",
           height: "60px",
-          marginTop: "-40px",
+          marginTop: "25px",
           display: "flex",
           justifyContent: "flex-end",
           alignItems: "flex-start",
@@ -490,9 +486,8 @@ export default function AgentComponent() {
         {/* Large circles */}
         <div
           style={{
-            pointerEvents: "none",
             position: "absolute",
-            left:"10%",
+            left:"20%",
             width: "50px",
             height: "50px",
             borderRadius: "50%",
@@ -506,11 +501,10 @@ export default function AgentComponent() {
         {/* Medium circle */}
         <div
           style={{
-            pointerEvents: "none",
             position: "absolute",
             width: "30px",
             height: "30px",
-            left:"25%",
+            left:"35%",
             top:"50px",
             borderRadius: "50%",
             backgroundColor: "#000",
