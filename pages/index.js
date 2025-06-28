@@ -488,9 +488,9 @@ export default function AgentComponent() {
         <div
           style={{
             position: "absolute",
-            right:"25%",
-            width: "50px",
-            height: "50px",
+            right:"22%",
+            width: "40px",
+            height: "40px",
             borderRadius: "50%",
             backgroundColor: "#000",
             opacity: [4, 5].includes(loadingStep) || !isLoading ? 1 : 0,
@@ -503,10 +503,10 @@ export default function AgentComponent() {
         <div
           style={{
             position: "absolute",
-            width: "30px",
-            height: "30px",
-            right:"42%",
-            top:"50px",
+            width: "25px",
+            height: "25px",
+            right:"38%",
+            top:"35px",
             borderRadius: "50%",
             backgroundColor: "#000",
             opacity: (!isLoading || [3, 4].includes(loadingStep)) ? 1 : 0,
