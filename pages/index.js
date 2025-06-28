@@ -433,9 +433,12 @@ export default function AgentComponent() {
   display: "flex",
   justifyContent: "flex-end",
   paddingRight: "22px",
-  marginTop: "10px",
+  marginTop: "5px",
   height: "40px", // Fixed height to prevent layout shift
-  alignItems: "center"
+  alignItems: "center",
+  opacity: hasStartedConversation ? 0 : 1, // Add this
+  pointerEvents: hasStartedConversation ? "none" : "auto", // Add this
+  zIndex: 10, // Add this - higher than animation circles
 }}>
   <div style={{ 
     fontSize: "14px", 
@@ -477,17 +480,18 @@ export default function AgentComponent() {
         style={{
           position: "relative",
           height: "60px",
-          marginTop: "25px",
+          marginTop: "-40px",
           display: "flex",
           justifyContent: "flex-end",
           alignItems: "flex-start",
+          zIndex: 1,
         }}
       >
         {/* Large circles */}
         <div
           style={{
             position: "absolute",
-            left:"20%",
+            left:"10%",
             width: "50px",
             height: "50px",
             borderRadius: "50%",
@@ -504,7 +508,7 @@ export default function AgentComponent() {
             position: "absolute",
             width: "30px",
             height: "30px",
-            left:"35%",
+            left:"25%",
             top:"50px",
             borderRadius: "50%",
             backgroundColor: "#000",
