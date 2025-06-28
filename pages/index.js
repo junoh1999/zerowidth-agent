@@ -269,6 +269,50 @@ export default function AgentComponent() {
         fontFamily: "Orkney, system-ui, sans-serif"
       }}
     >
+          {/* Rotating Prompt suggestion - always visible */}
+      {!hasStartedConversation && (
+      <div style={{
+  display: "flex",
+  justifyContent: "flex-end",
+  paddingRight: "22px",
+  marginTop: "10px",
+  height: "40px", // Fixed height to prevent layout shift
+  alignItems: "center"
+}}>
+  <div style={{ 
+    fontSize: "14px", 
+    padding: "0px 0px", 
+    margin: "0px 0px", 
+    marginRight: "0px", // Adjust this value to change spacing between "Try:" and button
+    fontStyle: "italic"
+  }}>
+    Try:
+  </div>
+  <div style={{ padding: "0px 0px", margin: "0px 0px" }}>
+    <button
+      onClick={() => handlePromptClick(chatConfig.suggestedPrompts[currentPromptIndex])}
+      onMouseEnter={() => setIsSuggestionHovered(true)}
+      onMouseLeave={() => setIsSuggestionHovered(false)}
+      style={{
+        fontFamily: "Orkney, sans-serif",
+        backgroundColor: "#FFFFFF",
+        border: "none",
+        borderRadius: "0.75em", 
+        padding: "6px 12px", // Reduce this value to make button smaller
+        margin: "0px 0px",
+        fontSize: "14px",
+        cursor: "pointer",
+        opacity: promptVisible ? 1 : 0,
+        transition: "opacity 0.5s ease, color 300ms ease",
+        whiteSpace: "nowrap",
+        color: isSuggestionHovered ? "#818181" : "#000000",
+      }}
+    >
+      {chatConfig.suggestedPrompts[currentPromptIndex]}
+    </button>
+  </div>
+</div>
+      )}
       <div
           style={{
             backgroundColor: "#000000",
@@ -427,50 +471,7 @@ export default function AgentComponent() {
 </div>
       </div>
         
-      {/* Rotating Prompt suggestion - always visible */}
-      {!hasStartedConversation && (
-      <div style={{
-  display: "flex",
-  justifyContent: "flex-end",
-  paddingRight: "22px",
-  marginTop: "10px",
-  height: "40px", // Fixed height to prevent layout shift
-  alignItems: "center"
-}}>
-  <div style={{ 
-    fontSize: "14px", 
-    padding: "0px 0px", 
-    margin: "0px 0px", 
-    marginRight: "0px", // Adjust this value to change spacing between "Try:" and button
-    fontStyle: "italic"
-  }}>
-    Try:
-  </div>
-  <div style={{ padding: "0px 0px", margin: "0px 0px" }}>
-    <button
-      onClick={() => handlePromptClick(chatConfig.suggestedPrompts[currentPromptIndex])}
-      onMouseEnter={() => setIsSuggestionHovered(true)}
-      onMouseLeave={() => setIsSuggestionHovered(false)}
-      style={{
-        fontFamily: "Orkney, sans-serif",
-        backgroundColor: "#FFFFFF",
-        border: "none",
-        borderRadius: "0.75em", 
-        padding: "6px 12px", // Reduce this value to make button smaller
-        margin: "0px 0px",
-        fontSize: "14px",
-        cursor: "pointer",
-        opacity: promptVisible ? 1 : 0,
-        transition: "opacity 0.5s ease, color 300ms ease",
-        whiteSpace: "nowrap",
-        color: isSuggestionHovered ? "#818181" : "#000000",
-      }}
-    >
-      {chatConfig.suggestedPrompts[currentPromptIndex]}
-    </button>
-  </div>
-</div>
-      )}
+  
 
       {/* Loading animation circles */}
       <div
