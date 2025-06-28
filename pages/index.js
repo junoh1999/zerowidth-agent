@@ -275,7 +275,7 @@ export default function AgentComponent() {
   display: "flex",
   justifyContent: "flex-end",
   paddingRight: "22px",
-  marginTop: "10px",
+  marginBottom: "6px",
   height: "40px", // Fixed height to prevent layout shift
   alignItems: "center"
 }}>
@@ -298,7 +298,7 @@ export default function AgentComponent() {
         backgroundColor: "#FFFFFF",
         border: "none",
         borderRadius: "0.75em", 
-        padding: "0 0 6px 12px", // Reduce this value to make button smaller
+        padding: "0 0 0px 12px", // Reduce this value to make button smaller
         margin: "0px 0px",
         fontSize: "14px",
         cursor: "pointer",
@@ -488,7 +488,7 @@ export default function AgentComponent() {
         <div
           style={{
             position: "absolute",
-            right:"43%",
+            right:"33%",
             width: "50px",
             height: "50px",
             borderRadius: "50%",
@@ -505,7 +505,7 @@ export default function AgentComponent() {
             position: "absolute",
             width: "30px",
             height: "30px",
-            right:"52%",
+            right:"42%",
             top:"50px",
             borderRadius: "50%",
             backgroundColor: "#000",
