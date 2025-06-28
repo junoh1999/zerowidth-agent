@@ -477,7 +477,7 @@ export default function AgentComponent() {
         style={{
           position: "relative",
           height: "60px",
-          marginTop: "-80px",
+          marginTop: "-40px",
           display: "flex",
           justifyContent: "flex-end",
           alignItems: "flex-start",
@@ -487,7 +487,7 @@ export default function AgentComponent() {
         <div
           style={{
             position: "absolute",
-            left:"20%",
+            left:"10%",
             width: "50px",
             height: "50px",
             borderRadius: "50%",
@@ -504,7 +504,7 @@ export default function AgentComponent() {
             position: "absolute",
             width: "30px",
             height: "30px",
-            left:"35%",
+            left:"25%",
             top:"50px",
             borderRadius: "50%",
             backgroundColor: "#000",
