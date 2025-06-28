@@ -298,7 +298,7 @@ export default function AgentComponent() {
         backgroundColor: "#FFFFFF",
         border: "none",
         borderRadius: "0.75em", 
-        padding: "0 0 0px 12px", // Reduce this value to make button smaller
+        padding: "0 0 0px 6px", // Reduce this value to make button smaller
         margin: "0px 0px",
         fontSize: "14px",
         cursor: "pointer",
