@@ -276,11 +276,11 @@ export default function AgentComponent() {
   justifyContent: "flex-end",
   paddingRight: "22px",
   marginBottom: "3px",
-  height: "20px", // Fixed height to prevent layout shift
+  height: "30px", // Fixed height to prevent layout shift
   alignItems: "baseline"
 }}>
   <div style={{ 
-    fontSize: "12px", 
+    fontSize: "14px", 
     padding: "0px 0px", 
     margin: "0px 0px", 
     marginRight: "0px", // Adjust this value to change spacing between "Try:" and button
@@ -302,7 +302,7 @@ export default function AgentComponent() {
         borderRadius: "0.75em", 
         padding: "0 0 0px 6px", // Reduce this value to make button smaller
         margin: "0px 0px",
-        fontSize: "12px",
+        fontSize: "14px",
         cursor: "pointer",
         opacity: promptVisible ? 1 : 0,
         transition: "opacity 0.5s ease, color 300ms ease",
