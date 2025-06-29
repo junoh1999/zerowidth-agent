@@ -257,7 +257,9 @@ const shouldExpand = isHovered || isExpanded;
     <div style={{
       position: "relative",
       height: "500px",
-      fontFamily: "Inter, sans-serif"
+      fontFamily: "Inter, sans-serif",
+      opacity: shouldExpand ? 1 : 0.8, // Add this line
+      transition: "opacity 300ms ease", // Add this line for smooth transition
     }}>
     
     <div style={{
