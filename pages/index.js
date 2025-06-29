@@ -256,7 +256,10 @@ const shouldExpand = isHovered || isExpanded;
     <div style={{
       position: "relative",
       height: "500px",
-      fontFamily: "Inter, sans-serif"
+    maxWidth: shouldExpand ? "400px" : "280px", // Make this dynamic too
+    marginLeft: "auto", // Change from "margin: 0 auto" to this
+    marginRight: "0", // Add this
+    fontFamily: "Inter, sans-serif"
     }}>
     
     <div style={{
@@ -332,13 +335,13 @@ const shouldExpand = isHovered || isExpanded;
             flexDirection: "column",
             justifyContent: "space-between", // This will push elements to the edges
             minHeight: "80px",
-    width: isHovered ? "480px" : "400px", // Clean width expansion
+    width: isHovered ? "400px" : "280px", // Clean width expansion
     transition: "width 300ms ease",
     position: "relative", // For absolute positioning of exit button
   }}
   onMouseEnter={() => setIsHovered(true)}
   onMouseLeave={() => setIsHovered(false)}
-        
+   onClick={() => setIsExpanded(true)} // Only expand, never collapse
       >
           {/* Exit button - only shows when committed to expanded */}
   {isExpanded && (
