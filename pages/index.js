@@ -68,6 +68,8 @@ export default function AgentComponent() {
   const [sessionId, setSessionId] = useState("");
   const [userId, setUserId] = useState("");
   const [hasStartedConversation, setHasStartedConversation] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
 
   // Hover states
   const [isSubmitHovered, setIsSubmitHovered] = useState(false);
@@ -327,9 +329,11 @@ export default function AgentComponent() {
             flexDirection: "column",
             justifyContent: "space-between", // This will push elements to the edges
             minHeight: "80px",
-            height: "auto" // Allow it to grow with content
-        }}
-
+    width: isHovered ? "480px" : "400px", // Clean width expansion
+    transition: "width 300ms ease",
+  }}
+  onMouseEnter={() => setIsHovered(true)}
+  onMouseLeave={() => setIsHovered(false)}
         
       >
 
