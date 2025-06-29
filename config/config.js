@@ -22,8 +22,8 @@ const chatConfig = {
   suggestedPromptsTitle: "Try asking:",
   suggestedPrompts: [
     "Favorite project?",
-    "Tell me about yourself",
     "Mother's maiden name?",
+    "Tell me about yourself"
   ],
   chatInputPlaceholder: "Type your message here...",
   maxChatHeight: 300,
