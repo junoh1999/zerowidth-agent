@@ -277,7 +277,7 @@ export default function AgentComponent() {
   paddingRight: "22px",
   marginBottom: "3px",
   height: "40px", // Fixed height to prevent layout shift
-  alignItems: "center"
+  alignItems: "baseline"
 }}>
   <div style={{ 
     fontSize: "12px", 
@@ -337,7 +337,7 @@ export default function AgentComponent() {
                <div
   style={{
     color: "#FFFFFF",
-    fontSize: "14px",
+    fontSize: "16px",
     fontWeight: "bold",
     //marginBottom: "10px",
     display: "flex",
