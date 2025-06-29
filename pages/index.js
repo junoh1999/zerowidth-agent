@@ -276,7 +276,7 @@ export default function AgentComponent() {
   justifyContent: "flex-end",
   paddingRight: "22px",
   marginBottom: "3px",
-  height: "40px", // Fixed height to prevent layout shift
+  height: "20px", // Fixed height to prevent layout shift
   alignItems: "baseline"
 }}>
   <div style={{ 
@@ -337,7 +337,7 @@ export default function AgentComponent() {
                <div
   style={{
     color: "#FFFFFF",
-    fontSize: "16px",
+    fontSize: "14px",
     fontWeight: "bold",
     //marginBottom: "10px",
     display: "flex",
