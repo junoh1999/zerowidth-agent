@@ -251,14 +251,14 @@ export default function AgentComponent() {
     <div style={{
       position: "relative",
       height: "500px",
-      fontFamily: "Orkney, sans-serif"
+      fontFamily: "Inter, sans-serif"
     }}>
     
     <div style={{
       position: "absolute",
       bottom: "0",
       width: "100%",
-      fontFamily: "Orkney, sans-serif"
+      fontFamily: "Inter, sans-serif"
     }}>
     <div
       style={{
@@ -280,11 +280,13 @@ export default function AgentComponent() {
   alignItems: "center"
 }}>
   <div style={{ 
-    fontSize: "14px", 
+    fontSize: "12px", 
     padding: "0px 0px", 
     margin: "0px 0px", 
     marginRight: "0px", // Adjust this value to change spacing between "Try:" and button
-    fontStyle: "italic"
+    fontStyle: "italic",
+    letterSpacing: "0.08em", // 8% horizontal spacing
+  lineHeight: "150%",
   }}>
     Try:
   </div>
@@ -294,18 +296,20 @@ export default function AgentComponent() {
       onMouseEnter={() => setIsSuggestionHovered(true)}
       onMouseLeave={() => setIsSuggestionHovered(false)}
       style={{
-        fontFamily: "Orkney, sans-serif",
+        fontFamily: "Inter, sans-serif",
         backgroundColor: "#FFFFFF",
         border: "none",
         borderRadius: "0.75em", 
         padding: "0 0 0px 6px", // Reduce this value to make button smaller
         margin: "0px 0px",
-        fontSize: "14px",
+        fontSize: "12px",
         cursor: "pointer",
         opacity: promptVisible ? 1 : 0,
         transition: "opacity 0.5s ease, color 300ms ease",
         whiteSpace: "nowrap",
         color: isSuggestionHovered ? "#818181" : "#000000",
+        letterSpacing: "0.08em", // 8% horizontal spacing
+       lineHeight: "150%",
       }}
     >
       {chatConfig.suggestedPrompts[currentPromptIndex]}
@@ -317,7 +321,7 @@ export default function AgentComponent() {
           style={{
             backgroundColor: "#000000",
             borderRadius: "16px",
-            padding: "22px",
+            padding: "18px",
             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
             display: "flex",
             flexDirection: "column",
@@ -335,10 +339,13 @@ export default function AgentComponent() {
     color: "#FFFFFF",
     fontSize: "14px",
     fontWeight: "bold",
-    marginBottom: "10px",
+    //marginBottom: "10px",
     display: "flex",
     alignItems: "center",
     gap: "7px", // Space between logo and text
+    fontFamily: "Inter, sans-serif",
+    letterSpacing: "0.04em", // 4% horizontal spacing
+    lineHeight: "150%",
   }}
 >
   <img 
@@ -382,7 +389,9 @@ export default function AgentComponent() {
                 maxWidth: "80%",
                 wordBreak: "break-word",
                 fontSize: "14px",
-                fontFamily: "Orkney, sans-serif",
+                fontFamily: "Inter, sans-serif",
+                letterSpacing: "0em", // 0% horizontal spacing
+                lineHeight: "150%",
               }}
             >
 {msg.role === "agent" ? (
@@ -433,9 +442,9 @@ export default function AgentComponent() {
         onChange={(e) => setMessage(e.target.value)}
         onKeyDown={preventScrollOnEnter}
         style={{
-          fontFamily: "Orkney, sans-serif",
+          fontFamily: "Inter, sans-serif",
           width: "100%",
-          padding: "12px 20px",
+          padding: "10px 14px",
           paddingRight: "50px", // Add space for the button
           borderRadius: "0.75em",
           border: "none",
@@ -443,6 +452,8 @@ export default function AgentComponent() {
           fontSize: "14px",
           backgroundColor: "#FFFFFF",
           boxSizing: "border-box",
+          letterSpacing: "0em", // 0% horizontal spacing
+          lineHeight: "150%",
         }}
       />
       <div 
@@ -561,18 +572,18 @@ export default function AgentComponent() {
       `}</style>
       <style jsx global>{`
   @font-face {
-    font-family: 'Orkney';
-    src: url('/fonts/orkney-regular.woff') format('woff');
-    font-weight: normal;
+    font-family: 'Inter';
+    src: url('/fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+    font-weight: 100 900;
     font-style: normal;
     font-display: swap;
   }
   
   @font-face {
-    font-family: 'Orkney';
-    src: url('/fonts/orkney-bold.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
+    font-family: 'Inter';
+    src: url('/fonts/Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: italic;
     font-display: swap;
   }
 `}</style>
