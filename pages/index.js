@@ -266,7 +266,7 @@ export default function AgentComponent() {
         width: "100%",
         maxWidth: "400px", // Adjust width to match your design
         margin: "0 auto",
-        fontFamily: "Orkney, system-ui, sans-serif"
+        fontFamily: "Inter, sans-serif"
       }}
     >
           {/* Rotating Prompt suggestion - always visible */}
@@ -276,7 +276,7 @@ export default function AgentComponent() {
   justifyContent: "flex-end",
   paddingRight: "22px",
   marginBottom: "3px",
-  height: "30px", // Fixed height to prevent layout shift
+  height: "40px", // Fixed height to prevent layout shift
   alignItems: "baseline"
 }}>
   <div style={{ 
@@ -337,7 +337,7 @@ export default function AgentComponent() {
                <div
   style={{
     color: "#FFFFFF",
-    fontSize: "14px",
+    fontSize: "16px",
     fontWeight: "bold",
     //marginBottom: "10px",
     display: "flex",
