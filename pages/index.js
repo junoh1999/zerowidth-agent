@@ -333,9 +333,9 @@ const shouldExpand = isHovered || isExpanded;
     justifyContent: "space-between",
     minHeight: "80px",
     width: shouldExpand ? "400px" : "280px",
-    transition: "width 300ms ease",
+    marginLeft: shouldExpand ? "0px" : "120px", // Add this - pushes smaller version to the right
+    transition: "width 300ms ease, margin-left 300ms ease", // Animate both
     position: "relative",
-    transformOrigin: "right center", // Add this - makes it expand from the right edge
   }}
   onMouseEnter={() => setIsHovered(true)}
   onMouseLeave={() => setIsHovered(false)}
