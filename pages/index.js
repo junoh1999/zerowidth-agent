@@ -73,6 +73,9 @@ const [isHovered, setIsHovered] = useState(false);
 
 const shouldExpand = isHovered || isExpanded;
 
+const [containerHeight, setContainerHeight] = useState(500);
+const [circleOffset, setCircleOffset] = useState(0);
+
 
   // Hover states
   const [isSubmitHovered, setIsSubmitHovered] = useState(false);
@@ -84,6 +87,28 @@ const shouldExpand = isHovered || isExpanded;
     setSessionId(getSessionId());
     setUserId(getUserId());
   }, []);
+
+  useEffect(() => {
+  const checkHeight = () => {
+    const currentHeight = window.innerHeight;
+    setContainerHeight(currentHeight);
+    
+    // If height is 500px, move circles left by 15%
+    if (currentHeight <= 500) {
+      setCircleOffset(15);
+    } else {
+      setCircleOffset(0);
+    }
+  };
+
+  // Check on mount
+  checkHeight();
+  
+  // Listen for resize events
+  window.addEventListener('resize', checkHeight);
+  
+  return () => window.removeEventListener('resize', checkHeight);
+}, []);
 
   // Rotate through prompt suggestions - always visible
   useEffect(() => {
@@ -552,37 +577,37 @@ const shouldExpand = isHovered || isExpanded;
           alignItems: "flex-start",
         }}
       >
-        {/* Large circles */}
-        <div
-          style={{
-            position: "absolute",
-            right:"22%",
-            width: "40px",
-            height: "40px",
-            borderRadius: "50%",
-            backgroundColor: "#000",
-            opacity: [4, 5].includes(loadingStep) || !isLoading ? 1 : 0,
-            transition: "opacity 0.2s ease-in-out",
-            marginRight: "10px",
-          }}
-        ></div>
+{/* Large circles */}
+<div
+  style={{
+    position: "absolute",
+    right: `${22 + circleOffset}%`, // Moves left when circleOffset increases
+    width: "40px",
+    height: "40px",
+    borderRadius: "50%",
+    backgroundColor: "#000",
+    opacity: [4, 5].includes(loadingStep) || !isLoading ? 1 : 0,
+    transition: "opacity 0.2s ease-in-out, right 300ms ease", // Smooth position transition
+    marginRight: "10px",
+  }}
+></div>
 
-        {/* Medium circle */}
-        <div
-          style={{
-            position: "absolute",
-            width: "25px",
-            height: "25px",
-            right:"38%",
-            top:"35px",
-            borderRadius: "50%",
-            backgroundColor: "#000",
-            opacity: (!isLoading || [3, 4].includes(loadingStep)) ? 1 : 0,
-            transition: "opacity 0.2s ease-in-out",
-            marginRight: "5px",
-            marginTop: "5px",
-          }}
-        ></div>
+{/* Medium circle */}
+<div
+  style={{
+    position: "absolute",
+    width: "25px",
+    height: "25px",
+    right: `${38 + circleOffset}%`, // Moves left when circleOffset increases
+    top: "35px",
+    borderRadius: "50%",
+    backgroundColor: "#000",
+    opacity: (!isLoading || [3, 4].includes(loadingStep)) ? 1 : 0,
+    transition: "opacity 0.2s ease-in-out, right 300ms ease", // Smooth position transition
+    marginRight: "5px",
+    marginTop: "5px",
+  }}
+></div>
       </div>
       </div>
       </div>
