@@ -256,10 +256,7 @@ const shouldExpand = isHovered || isExpanded;
     <div style={{
       position: "relative",
       height: "500px",
-    maxWidth: shouldExpand ? "400px" : "280px", // Make this dynamic too
-    marginLeft: "auto", // Change from "margin: 0 auto" to this
-    marginRight: "0", // Add this
-    fontFamily: "Inter, sans-serif"
+      fontFamily: "Inter, sans-serif"
     }}>
     
     <div style={{
@@ -326,23 +323,24 @@ const shouldExpand = isHovered || isExpanded;
 </div>
       )}
       <div
-          style={{
-            backgroundColor: "#000000",
-            borderRadius: "16px",
-            padding: "18px",
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between", // This will push elements to the edges
-            minHeight: "80px",
-    width: isHovered ? "400px" : "280px", // Clean width expansion
+  style={{
+    backgroundColor: "#000000",
+    borderRadius: "16px",
+    padding: "18px",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    minHeight: "80px",
+    width: shouldExpand ? "400px" : "280px",
     transition: "width 300ms ease",
-    position: "relative", // For absolute positioning of exit button
+    position: "relative",
+    transformOrigin: "right center", // Add this - makes it expand from the right edge
   }}
   onMouseEnter={() => setIsHovered(true)}
   onMouseLeave={() => setIsHovered(false)}
-   onClick={() => setIsExpanded(true)} // Only expand, never collapse
-      >
+  onClick={() => setIsExpanded(true)}
+>
           {/* Exit button - only shows when committed to expanded */}
   {isExpanded && (
     <button
