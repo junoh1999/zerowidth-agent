@@ -250,6 +250,7 @@ const shouldExpand = isHovered || isExpanded;
    */
   const handlePromptClick = (prompt) => {
     submitMessage(prompt);
+    setIsExpanded(true); // Add this line
   };
 
   return (
