@@ -68,7 +68,10 @@ export default function AgentComponent() {
   const [sessionId, setSessionId] = useState("");
   const [userId, setUserId] = useState("");
   const [hasStartedConversation, setHasStartedConversation] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
+const [isExpanded, setIsExpanded] = useState(false);
+const [isHovered, setIsHovered] = useState(false);
+
+const shouldExpand = isHovered || isExpanded;
 
 
   // Hover states
@@ -331,11 +334,45 @@ export default function AgentComponent() {
             minHeight: "80px",
     width: isHovered ? "480px" : "400px", // Clean width expansion
     transition: "width 300ms ease",
+    position: "relative", // For absolute positioning of exit button
   }}
   onMouseEnter={() => setIsHovered(true)}
   onMouseLeave={() => setIsHovered(false)}
         
       >
+          {/* Exit button - only shows when committed to expanded */}
+  {isExpanded && (
+    <button
+      onClick={(e) => {
+        e.stopPropagation(); // Prevent triggering container click
+        setIsExpanded(false);
+      }}
+      style={{
+        position: "absolute",
+        top: "12px",
+        right: "12px",
+        background: "transparent",
+        border: "none",
+        color: "#FFFFFF",
+        cursor: "pointer",
+        fontSize: "18px",
+        lineHeight: "1",
+        padding: "4px",
+        borderRadius: "50%",
+        width: "24px",
+        height: "24px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        opacity: "0.7",
+        transition: "opacity 200ms ease",
+      }}
+      onMouseEnter={(e) => e.target.style.opacity = "1"}
+      onMouseLeave={(e) => e.target.style.opacity = "0.7"}
+    >
+      ×
+    </button>
+  )}
 
                 {/* "Explore my thoughts..." header */}
                <div
