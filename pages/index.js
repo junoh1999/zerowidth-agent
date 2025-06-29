@@ -385,7 +385,7 @@ export default function AgentComponent() {
                 color: msg.role === "user" ? "#000000" : "#FFFFFF",
                 border: msg.role === "user" ? "none" : "1px solid #FFFFFF",
                 borderRadius: "0.75em",
-                padding: "8px 16px",
+                padding: "8px 12px",
                 maxWidth: "80%",
                 wordBreak: "break-word",
                 fontSize: "14px",
