@@ -284,7 +284,7 @@ const shouldExpand = isHovered || isExpanded;
   justifyContent: "flex-end",
   paddingRight: "22px",
   marginBottom: "3px",
-  height: "35px", // Fixed height to prevent layout shift
+  height: "30px", // Fixed height to prevent layout shift
   alignItems: "baseline"
 }}>
   <div style={{ 
