@@ -276,7 +276,7 @@ export default function AgentComponent() {
   justifyContent: "flex-end",
   paddingRight: "22px",
   marginBottom: "3px",
-  height: "40px", // Fixed height to prevent layout shift
+  height: "35px", // Fixed height to prevent layout shift
   alignItems: "baseline"
 }}>
   <div style={{ 
