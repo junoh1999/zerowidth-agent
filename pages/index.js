@@ -336,6 +336,7 @@ const shouldExpand = isHovered || isExpanded;
     marginLeft: shouldExpand ? "0px" : "120px", // Add this - pushes smaller version to the right
     transition: "width 300ms ease, margin-left 300ms ease", // Animate both
     position: "relative",
+    boxSizing: "border-box", // ADD THIS LINE
   }}
   onMouseEnter={() => setIsHovered(true)}
   onMouseLeave={() => setIsHovered(false)}
