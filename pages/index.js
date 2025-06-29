@@ -330,14 +330,25 @@ export default function AgentComponent() {
       >
 
                 {/* "Explore my thoughts..." header */}
-                <div
-          style={{
-            color: "#FFFFFF",
-            fontSize: "16px",
-            fontWeight: "bold",
-            marginBottom: "10px",
-          }}
-        >
+               <div
+  style={{
+    color: "#FFFFFF",
+    fontSize: "14px",
+    fontWeight: "bold",
+    marginBottom: "10px",
+    display: "flex",
+    alignItems: "center",
+    gap: "7px", // Space between logo and text
+  }}
+>
+  <img 
+    src="/sparkle.svg" 
+    alt="Sparkle" 
+    style={{ 
+      width: "18px", 
+      height: "18px" 
+    }} 
+  />
           Ask my AI self...
         </div>
         {/* Chat messages */}
