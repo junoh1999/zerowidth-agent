@@ -352,6 +352,11 @@ const shouldExpand = isHovered || isExpanded;
         e.stopPropagation(); // Prevent triggering container click
         setIsExpanded(false);
       }}
+          onTouchEnd={(e) => { // Add this for mobile
+      e.preventDefault();
+      e.stopPropagation();
+      setIsExpanded(false);
+    }}
       style={{
         position: "absolute",
         top: "12px",
@@ -364,13 +369,14 @@ const shouldExpand = isHovered || isExpanded;
         lineHeight: "1",
         padding: "4px",
         borderRadius: "50%",
-        width: "24px",
-        height: "24px",
+        width: "30px",
+        height: "30px",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         opacity: "0.7",
         transition: "opacity 200ms ease",
+        WebkitTapHighlightColor: "transparent", // Remove iOS tap highlight
       }}
       onMouseEnter={(e) => e.target.style.opacity = "1"}
       onMouseLeave={(e) => e.target.style.opacity = "0.7"}
