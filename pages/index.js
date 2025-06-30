@@ -527,7 +527,7 @@ onClick={() => {
           width: "33px",
           height: "33px", 
           backgroundColor: isSubmitHovered ? "#818181" : "#000000",
-          borderRadius: "0.75em",
+          borderRadius: "8px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
