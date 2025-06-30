@@ -344,20 +344,26 @@ const xButtonClicked = useRef(false);
   }}
   onMouseEnter={() => setIsHovered(true)}
   onMouseLeave={() => setIsHovered(false)}
-  onClick={() => {
+onClick={(e) => {
   if (xButtonClicked.current) {
     xButtonClicked.current = false;
     return;
   }
-  setIsExpanded(true);
+  
+  setTimeout(() => {
+    setIsExpanded(true);
+  }, 0);
 }}
 >
           {/* Exit button - only shows when committed to expanded */}
   {isExpanded && (
     <button
 onClick={(e) => {
-  xButtonClicked.current = true;
+  e.preventDefault();
+  e.stopImmediatePropagation();
+  
   setIsExpanded(false);
+  xButtonClicked.current = true;
 }}
           onTouchEnd={(e) => { // Add this for mobile
       e.preventDefault();
