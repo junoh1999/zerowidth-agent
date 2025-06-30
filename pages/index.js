@@ -72,9 +72,6 @@ const [isExpanded, setIsExpanded] = useState(false);
 const [isHovered, setIsHovered] = useState(false);
 
 const shouldExpand = isHovered || isExpanded;
-const xButtonClicked = useRef(false);
-const [isClosing, setIsClosing] = useState(false);
-
 
   // Hover states
   const [isSubmitHovered, setIsSubmitHovered] = useState(false);
@@ -346,56 +343,56 @@ const [isClosing, setIsClosing] = useState(false);
   onMouseEnter={() => setIsHovered(true)}
   onMouseLeave={() => setIsHovered(false)}
 onClick={() => {
-  if (isClosing) return;
   setIsExpanded(true);
 }}
 >
           {/* Exit button - only shows when committed to expanded */}
-  {isExpanded && (
-    <button
-onClick={(e) => {
-  e.preventDefault();
-  e.stopPropagation();
-  
-  setIsClosing(true);
-  
-  setTimeout(() => {
-    setIsExpanded(false);
-    setIsClosing(false);
-  }, 10);
-}}
-          onTouchEnd={(e) => { // Add this for mobile
+{isExpanded && (
+  <button
+    onClick={(e) => {
       e.preventDefault();
       e.stopPropagation();
+      // Direct close - no setTimeout delays
       setIsExpanded(false);
+      setIsHovered(false); // Reset hover state
     }}
-      style={{
-        position: "absolute",
-        top: "12px",
-        right: "12px",
-        background: "transparent",
-        border: "none",
-        color: "#FFFFFF",
-        cursor: "pointer",
-        fontSize: "18px",
-        lineHeight: "1",
-        padding: "4px",
-        borderRadius: "50%",
-        width: "30px",
-        height: "30px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        opacity: "0.7",
-        transition: "opacity 200ms ease",
-        WebkitTapHighlightColor: "transparent", // Remove iOS tap highlight
-      }}
-      onMouseEnter={(e) => e.target.style.opacity = "1"}
-      onMouseLeave={(e) => e.target.style.opacity = "0.7"}
-    >
-      ×
-    </button>
-  )}
+    onTouchEnd={(e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      // Ensure mobile touch also works
+      setIsExpanded(false);
+      setIsHovered(false);
+    }}
+    style={{
+      position: "absolute",
+      top: "15px", // Move slightly away from iframe edge
+      right: "15px", // Move slightly away from iframe edge
+      background: "transparent",
+      border: "none",
+      color: "#FFFFFF",
+      cursor: "pointer",
+      fontSize: "18px",
+      lineHeight: "1",
+      padding: "6px", // Larger tap target for mobile
+      borderRadius: "50%",
+      width: "32px", // Slightly larger for mobile
+      height: "32px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      opacity: "0.7",
+      transition: "opacity 200ms ease",
+      WebkitTapHighlightColor: "transparent",
+      // Add these for better mobile interaction
+      touchAction: "manipulation",
+      userSelect: "none",
+    }}
+    onMouseEnter={(e) => e.target.style.opacity = "1"}
+    onMouseLeave={(e) => e.target.style.opacity = "0.7"}
+  >
+    ×
+  </button>
+)}
 
                 {/* "Explore my thoughts..." header */}
                <div
