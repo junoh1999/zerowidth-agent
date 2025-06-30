@@ -524,8 +524,8 @@ onClick={() => {
         style={{
           position: "absolute",
           right: "4px", // Position on the right side of input
-          width: "35px",
-          height: "35px", 
+          width: "33px",
+          height: "33px", 
           backgroundColor: isSubmitHovered ? "#818181" : "#000000",
           borderRadius: "0.75em",
           display: "flex",
