@@ -72,6 +72,7 @@ const [isExpanded, setIsExpanded] = useState(false);
 const [isHovered, setIsHovered] = useState(false);
 
 const shouldExpand = isHovered || isExpanded;
+const xButtonClicked = useRef(false);
 
 
   // Hover states
@@ -343,15 +344,21 @@ const shouldExpand = isHovered || isExpanded;
   }}
   onMouseEnter={() => setIsHovered(true)}
   onMouseLeave={() => setIsHovered(false)}
-  onClick={() => setIsExpanded(true)}
+  onClick={() => {
+  if (xButtonClicked.current) {
+    xButtonClicked.current = false;
+    return;
+  }
+  setIsExpanded(true);
+}}
 >
           {/* Exit button - only shows when committed to expanded */}
   {isExpanded && (
     <button
-      onClick={(e) => {
-        e.stopPropagation(); // Prevent triggering container click
-        setIsExpanded(false);
-      }}
+onClick={(e) => {
+  xButtonClicked.current = true;
+  setIsExpanded(false);
+}}
           onTouchEnd={(e) => { // Add this for mobile
       e.preventDefault();
       e.stopPropagation();
