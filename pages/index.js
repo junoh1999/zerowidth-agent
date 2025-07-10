@@ -561,7 +561,7 @@ onClick={() => {
         style={{
           position: "relative",
           height: "60px",
-          marginTop: "18px",
+          marginTop: "10px",
           display: "flex",
           justifyContent: "flex-end",
           alignItems: "flex-start",
@@ -588,7 +588,7 @@ onClick={() => {
             position: "absolute",
             width: "25px",
             height: "25px",
-            right:"38%",
+            right:"33%",
             top:"35px",
             borderRadius: "50%",
             backgroundColor: "#000",
